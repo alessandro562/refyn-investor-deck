@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Refyn — Investor Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bone:#F2EFE8; --bone-2:#E9E5DC;
+  --ink:#15171A; --ink-2:#3D4148; --ink-3:#6B7180; --ink-4:#9DA3B0;
+  --cadmio:#F5C518; --cadmio-d:#9a7d0a;
+  --efficiency:#F5C518; --energy:#E89A1A; --esg:#4A7F4F;
+  --compliance:#2F5A8C; --compliance-l:#5A9BF2; --esg-l:#3FD089;
+  --quality:#B23A2A; --data:#6B5BA6;
+  --cline:rgba(21,23,26,.13);
+  --cline-d:rgba(242,239,232,.14);
+  --font:'Geist',sans-serif; --mono:'Geist Mono',monospace;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:#0a0a0a;font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden;}
+.slide{width:100vw;height:100vh;position:absolute;inset:0;display:none;overflow:hidden;background:var(--bone);color:var(--ink);}
+.slide.active{display:block;}
+.slide.dark{background:var(--ink);color:var(--bone);}
+
+.nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:300;display:flex;gap:10px;align-items:center;background:rgba(10,10,10,.55);padding:6px 12px;border-radius:100px;}
+.nav button{background:#fff;border:none;width:28px;height:28px;border-radius:5px;cursor:pointer;font-family:var(--mono);font-size:13px;}
+.nav .c{color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.06em;min-width:52px;text-align:center;}
+.prog{position:fixed;top:0;left:0;height:2px;background:var(--cadmio);z-index:400;transition:width .3s;}
+
+.logo{font-family:var(--font);font-weight:800;letter-spacing:-0.03em;}
+.logo .dot{color:var(--cadmio);}
+
+.frame{position:absolute;top:30px;left:30px;right:30px;bottom:30px;border:1px solid var(--cline);pointer-events:none;z-index:1;}
+.dark .frame{border-color:var(--cline-d);}
+.guide{position:absolute;z-index:1;pointer-events:none;}
+.guide.v{width:1px;top:30px;bottom:30px;background:var(--cline);}
+.guide.h{height:1px;left:30px;right:30px;background:var(--cline);}
+.dark .guide.v,.dark .guide.h{background:var(--cline-d);}
+
+.body{position:absolute;top:30px;left:30px;right:30px;bottom:64px;padding:28px 46px 10px;display:flex;flex-direction:column;z-index:5;}
+.toprow{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.secnum{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);}
+.dark .secnum{color:var(--ink-4);}
+.secnum b{color:var(--ink);font-weight:600;}
+.dark .secnum b{color:var(--bone);}
+
+.cartiglio{position:absolute;left:30px;right:30px;bottom:30px;height:34px;border-top:1px solid var(--cline);
+  display:flex;align-items:stretch;z-index:6;}
+.dark .cartiglio{border-top-color:var(--cline-d);}
+.cartiglio .cell{padding:0 15px;display:flex;align-items:center;border-right:1px solid var(--cline);font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;white-space:nowrap;}
+.dark .cartiglio .cell{border-right-color:var(--cline-d);color:var(--ink-4);}
+.cartiglio .cell b{color:var(--ink);font-weight:600;}
+.dark .cartiglio .cell b{color:var(--bone);}
+.cartiglio .cell.flex{flex:1;justify-content:flex-end;color:var(--ink-4);}
+.cartiglio .cell.brand{border-right:none;font-family:var(--font);font-weight:800;font-size:13px;letter-spacing:-.02em;color:var(--ink);padding-left:15px;}
+.dark .cartiglio .cell.brand{color:var(--bone);}
+
+h2.title{font-family:var(--font);font-weight:700;line-height:1.0;letter-spacing:-0.025em;color:var(--ink);}
+.dark h2.title{color:var(--bone);}
+.lead{font-size:15px;line-height:1.6;color:var(--ink-2);}
+.dark .lead{color:rgba(242,239,232,.72);}
+.body-txt{font-size:13.5px;line-height:1.55;color:var(--ink-2);}
+.dark .body-txt{color:rgba(242,239,232,.6);}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);}
+.dark .eyebrow{color:var(--ink-4);}
+.mono{font-family:var(--mono);}
+.ph{font-family:var(--mono);font-size:.84em;color:var(--quality);background:rgba(178,58,42,.08);border:1px dashed rgba(178,58,42,.4);border-radius:3px;padding:1px 6px;white-space:nowrap;}
+.hl{box-shadow:inset 0 -0.42em 0 rgba(245,197,24,.32);font-weight:600;color:var(--ink);}
+
+.kgrid{display:grid;gap:1px;background:var(--ink);border:1px solid var(--ink);}
+.kgrid .kcell{background:var(--bone);padding:24px;}
+.dark .kgrid{background:var(--cline-d);border-color:var(--cline-d);}
+.dark .kgrid .kcell{background:var(--ink);}
+
+.stat-num{font-weight:800;line-height:1;letter-spacing:-0.02em;color:var(--ink);}
+.dark .stat-num{color:var(--bone);}
+.stat-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:6px;}
+.dark .stat-lbl{color:var(--ink-4);}
+
+.clientcard{border:1px solid var(--cline);padding:12px 14px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;min-height:62px;}
+.clientname{font-family:var(--font);font-weight:700;font-size:16px;color:var(--ink);letter-spacing:-.01em;}
+.clienttag{font-family:var(--mono);font-size:8px;color:var(--ink-4);letter-spacing:.08em;text-transform:uppercase;}
+
+.cmp{width:100%;border-collapse:collapse;font-family:var(--mono);}
+.cmp th{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);padding:10px 8px;text-align:center;border-bottom:1px solid var(--cline);font-weight:500;}
+.cmp th:first-child{text-align:left;width:30%;}
+.cmp th.me{color:var(--ink);font-weight:700;}
+.cmp td{font-size:12px;padding:9px 8px;text-align:center;border-bottom:1px solid var(--cline);color:var(--ink-3);}
+.cmp td:first-child{text-align:left;color:var(--ink-2);font-size:11px;}
+.cmp td.me{background:rgba(245,197,24,.12);color:var(--ink);font-weight:700;}
+
+.tier{padding:22px;display:flex;flex-direction:column;}
+.tier .tg{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.tier .sq{width:10px;height:10px;}
+.tier .tn{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-3);}
+.tier .tname{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em;}
+.tier .tp{font-family:var(--mono);font-size:19px;font-weight:600;color:var(--ink);margin-bottom:11px;}
+.tier .td{font-size:12.5px;color:var(--ink-3);line-height:1.5;}
+
+@media print{.nav,.prog{display:none;}.slide{display:block!important;page-break-after:always;}}
+
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+
+<div class="slide dark active" id="i1">
+  <div class="frame"></div>
+  <div class="body" style="padding-top:42px;padding-bottom:18px;">
+    <div class="toprow">
+      <div class="secnum"><b>01</b> — COVER</div>
+      <div class="mono" style="font-size:10px;color:rgba(242,239,232,.42);letter-spacing:.16em;text-transform:uppercase;">Investor Deck · Pre-Seed 2026</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;">
+      <div class="logo" style="font-size:clamp(140px,20vw,280px);line-height:.82;letter-spacing:-0.055em;color:var(--bone);">Refyn<span class="dot">.</span></div>
+      <div style="display:flex;align-items:center;gap:22px;margin-top:40px;">
+        <div style="width:56px;height:2px;background:var(--cadmio);"></div>
+        <div style="font-family:var(--mono);font-size:16px;letter-spacing:.04em;color:rgba(242,239,232,.78);">Dato grezzo, <span style="color:var(--cadmio);font-weight:600;">decisione raffinata.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 01/17</div>
+    <div class="cell">COVER</div><div class="cell">CONFIDENTIAL</div>
+    <div class="cell flex">a product by D Factory S.r.l. · Collecchio (PR)</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i2">
+  <div class="frame"></div><div class="guide v" style="left:50%;"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>02</b> — IL PROBLEMA</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1;align-items:center;">
+      <div>
+        <h2 class="title" style="font-size:clamp(36px,4.8vw,72px);">I dati di linea<br>esistono <span style="color:var(--cadmio);">già.</span></h2>
+        <div class="mono" style="margin-top:20px;font-size:14px;color:var(--ink-3);letter-spacing:.02em;line-height:1.5;max-width:400px;">Ma sono frammentati, incomparabili, inutilizzabili.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:26px;">
+        <div style="display:flex;gap:44px;">
+          <div><div class="stat-num" style="font-size:58px;color:var(--quality);">53%</div><div class="stat-lbl" style="margin-top:8px;">OEE medio F&amp;B<br>world-class: 85%</div></div>
+          <div><div class="stat-num" style="font-size:58px;color:var(--energy);">+164%</div><div class="stat-lbl" style="margin-top:8px;">costo energia PMI<br>vs grandi imprese</div></div>
+        </div>
+        <div style="border-left:2px solid var(--cadmio);padding-left:16px;max-width:420px;">
+          <div class="body-txt" style="font-size:14px;">Una linea a OEE 53% lascia a terra <strong style="color:var(--ink)">~30% di capacità produttiva</strong>: decine di migliaia di € all'anno per linea.</div>
+        </div>
+        <div class="mono" style="font-size:9px;color:var(--ink-4);">Evocon/LLumin 2024 · CGIA Mestre H1 2024</div>
+      </div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 02/17</div>
+    <div class="cell">PROBLEMA</div><div class="cell">F&B</div>
+    <div class="cell flex">i dati esistono ma non diventano decisioni</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide dark" id="i3">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>03</b> — PERCHÉ ORA</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="display:grid;grid-template-columns:0.92fr 1.08fr;gap:48px;flex:1;align-items:center;padding-top:6px;">
+      <div>
+        <div class="eyebrow" style="color:var(--cadmio);margin-bottom:14px;">2026–2028 · la finestra</div>
+        <h2 class="title" style="font-size:clamp(34px,4.6vw,66px);line-height:1.0;">Quattro forze.<br>Una sola <span style="color:var(--cadmio);">finestra.</span></h2>
+        <div style="border-left:2px solid var(--cadmio);padding-left:16px;margin-top:28px;max-width:360px;">
+          <p class="body-txt" style="font-size:14.5px;color:rgba(242,239,232,.82);line-height:1.55;">Non è la normativa che spinge i F&amp;B a comprare. <strong style="color:var(--bone);">È la pressione della loro filiera.</strong></p>
+        </div>
+      </div>
+      <div class="kgrid" style="grid-template-columns:1fr 1fr;">
+        <div class="kcell">
+          <div class="eyebrow" style="color:rgba(242,239,232,.45);margin-bottom:8px;">01 · ENERGIA</div>
+          <div style="font-size:32px;font-weight:800;color:var(--bone);line-height:1;margin-bottom:8px;">€35B</div>
+          <div class="body-txt" style="font-size:11.5px;line-height:1.5;">Costo manifattura IT 2022, da €15B nel 2020.</div>
+        </div>
+        <div class="kcell" style="background:rgba(245,197,24,.06);position:relative;">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--cadmio);"></div>
+          <div class="eyebrow" style="color:var(--cadmio);margin-bottom:8px;">02 · FILIERA ★</div>
+          <div style="font-size:32px;font-weight:800;color:var(--cadmio);line-height:1;margin-bottom:8px;">70–95%</div>
+          <div class="body-txt" style="font-size:11.5px;line-height:1.5;">Scope 3 in F&amp;B. Filtro di filiera per brand e GDO.</div>
+        </div>
+        <div class="kcell">
+          <div class="eyebrow" style="color:rgba(242,239,232,.45);margin-bottom:8px;">03 · NORMATIVE</div>
+          <div style="font-size:32px;font-weight:800;color:var(--bone);line-height:1;margin-bottom:8px;">2027–29</div>
+          <div class="body-txt" style="font-size:11.5px;line-height:1.5;">CSRD scaglionata post-Omnibus. EED audit. Crediti 4.0/5.0 al 2028.</div>
+        </div>
+        <div class="kcell">
+          <div class="eyebrow" style="color:rgba(242,239,232,.45);margin-bottom:8px;">04 · COMPLIANCE</div>
+          <div style="font-size:32px;font-weight:800;color:var(--bone);line-height:1;margin-bottom:8px;">N°1</div>
+          <div class="body-txt" style="font-size:11.5px;line-height:1.5;">Driver d'acquisto della Direzione Industriale.</div>
+        </div>
+      </div>
+    </div>
+    <div class="mono" style="font-size:9px;color:var(--ink-4);margin-top:10px;">CGIA Mestre · CDP 2024 · Reg. UE CSRD post-Omnibus · Dir. UE 2023/1791 (EED).</div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 03/17</div>
+    <div class="cell">PERCHÉ ORA</div><div class="cell">4 FORZE</div>
+    <div class="cell flex">finestra 2026–2028 · la filiera traina la legge</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i4">
+  <div class="frame"></div><div class="guide v" style="left:54%;"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>04</b> — LA SOLUZIONE</div><div class="mono" style="font-size:10px;color:var(--ink-4);letter-spacing:.16em;text-transform:uppercase;">middleware packaging</div></div>
+    <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;flex:1;align-items:center;">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px;">La soluzione</div>
+        <h2 class="title" style="font-size:clamp(36px,4.6vw,68px);line-height:.98;">Il middleware<br><span style="color:var(--cadmio);">sotto la dashboard.</span></h2>
+        <p class="lead" style="max-width:440px;margin-top:24px;">Dove gli altri costruiscono dashboard, Refyn costruisce <span class="hl">ciò che sta sotto</span>. Parla PackML — 17 stati standard — e traduce macchine eterogenee in un unico modello dati.</p>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px;">Differenziale difendibile</div>
+        <div style="display:flex;flex-direction:column;border:1px solid var(--ink);">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--cline);display:flex;justify-content:space-between;align-items:center;gap:10px;"><span class="body-txt" style="font-size:13px;">Granularità del dato</span><span class="mono" style="font-size:10px;color:var(--cadmio-d);font-weight:600;text-align:right;">MACCHINA · TURNO · LOTTO</span></div>
+          <div style="padding:14px 18px;border-bottom:1px solid var(--cline);display:flex;justify-content:space-between;align-items:center;gap:10px;"><span class="body-txt" style="font-size:13px;">Energia certificata</span><span class="mono" style="font-size:10px;color:var(--cadmio-d);font-weight:600;text-align:right;">MID · VALORE LEGALE</span></div>
+          <div style="padding:14px 18px;border-bottom:1px solid var(--cline);display:flex;justify-content:space-between;align-items:center;gap:10px;"><span class="body-txt" style="font-size:13px;">Standard macchine</span><span class="mono" style="font-size:10px;color:var(--cadmio-d);font-weight:600;text-align:right;">PACKML · 17 STATI</span></div>
+          <div style="padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;"><span class="body-txt" style="font-size:13px;">Viste unificate</span><span class="mono" style="font-size:10px;color:var(--cadmio-d);font-weight:600;text-align:right;">PROD + ENERGIA + ESG</span></div>
+        </div>
+        <div style="border-left:2px solid var(--cadmio);padding-left:14px;margin-top:16px;">
+          <div class="body-txt" style="font-size:12.5px;">Nessun competitor italiano combina questi quattro.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 04/17</div>
+    <div class="cell">SOLUZIONE</div><div class="cell">MIDDLEWARE PACKML</div>
+    <div class="cell flex">da linee eterogenee a un modello unico</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i5">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>05</b> — PRODOTTO · ARCHITETTURA</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="display:flex;flex-direction:column;flex:1;gap:18px;padding-top:8px;min-height:0;">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px;">Come funziona</div>
+        <h2 class="title" style="font-size:clamp(32px,4vw,56px);line-height:1.0;">Da PLC a <span style="color:var(--cadmio);">decisione.</span></h2>
+        <p class="lead" style="max-width:700px;margin-top:14px;font-size:14.5px;line-height:1.55;">Refyn legge i dati che il cliente <strong style="color:var(--ink);">già produce</strong> — PLC, sensori, contatori, gestionale. Li traduce in PackML, li contestualizza con ordine e prodotto, li serve in due famiglie di viste.</p>
+      </div>
+      <div style="flex:1;display:flex;align-items:center;min-height:0;"><svg viewBox="0 0 1200 320" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block;font-family:'Geist',sans-serif;">
+  <defs>
+    <linearGradient id="fl" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(47,90,140,0)"/><stop offset="100%" stop-color="rgba(47,90,140,.55)"/></linearGradient>
+    <linearGradient id="frP" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(47,90,140,.55)"/><stop offset="100%" stop-color="rgba(47,90,140,.15)"/></linearGradient>
+    <linearGradient id="frE" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(74,127,79,.55)"/><stop offset="100%" stop-color="rgba(74,127,79,.15)"/></linearGradient>
+  </defs>
+
+  <text x="130" y="30" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="10" fill="#6B7180" letter-spacing="0.18em">INPUT · DAL CLIENTE</text>
+  <text x="600" y="30" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="10" fill="#6B7180" letter-spacing="0.18em">REFYN · IL MIDDLEWARE</text>
+  <text x="1070" y="30" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="10" fill="#6B7180" letter-spacing="0.18em">OUTPUT · DUE FAMIGLIE</text>
+
+  <g transform="translate(30,60)"><rect width="200" height="50" rx="3" fill="#ffffff" stroke="rgba(21,23,26,.18)"/><rect width="3" height="50" fill="#2F5A8C"/><text x="14" y="20" font-family="'Geist Mono',monospace" font-size="9" fill="#6B7180" letter-spacing="0.14em">PLC LINEA</text><text x="14" y="38" font-family="'Geist',sans-serif" font-weight="600" font-size="12" fill="#15171A">Stati macchina · allarmi</text></g>
+  <g transform="translate(30,120)"><rect width="200" height="50" rx="3" fill="#ffffff" stroke="rgba(21,23,26,.18)"/><rect width="3" height="50" fill="#2F5A8C"/><text x="14" y="20" font-family="'Geist Mono',monospace" font-size="9" fill="#6B7180" letter-spacing="0.14em">SENSORI ESISTENTI</text><text x="14" y="38" font-family="'Geist',sans-serif" font-weight="600" font-size="12" fill="#15171A">Pezzi · velocità · qualità</text></g>
+  <g transform="translate(30,180)"><rect width="200" height="50" rx="3" fill="#ffffff" stroke="rgba(21,23,26,.18)"/><rect width="3" height="50" fill="#4A7F4F"/><text x="14" y="20" font-family="'Geist Mono',monospace" font-size="9" fill="#6B7180" letter-spacing="0.14em">CONTATORI MID</text><text x="14" y="38" font-family="'Geist',sans-serif" font-weight="600" font-size="12" fill="#15171A">5 vettori certificati</text></g>
+  <g transform="translate(30,240)"><rect width="200" height="50" rx="3" fill="#ffffff" stroke="rgba(21,23,26,.18)"/><rect width="3" height="50" fill="#6B7180"/><text x="14" y="20" font-family="'Geist Mono',monospace" font-size="9" fill="#6B7180" letter-spacing="0.14em">SAP · GESTIONALE</text><text x="14" y="38" font-family="'Geist',sans-serif" font-weight="600" font-size="12" fill="#15171A">Ordini · batch · anagrafiche</text></g>
+
+  <path d="M232,85 C355,85 355,160 478,160" fill="none" stroke="url(#fl)" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M232,145 C355,145 355,160 478,160" fill="none" stroke="url(#fl)" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M232,205 C355,205 355,160 478,160" fill="none" stroke="url(#fl)" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M232,265 C355,265 355,160 478,160" fill="none" stroke="url(#fl)" stroke-width="1.8" stroke-linecap="round"/>
+
+  <g transform="translate(484,108)">
+    <rect width="240" height="104" rx="4" fill="#15171A"/>
+    <text x="18" y="28" font-family="'Geist Mono',monospace" font-size="9.5" fill="#9DA3B0" letter-spacing="0.18em">PACKML · 17 STATI</text>
+    <text x="18" y="64" font-family="'Geist',sans-serif" font-size="28" font-weight="800" fill="#F2EFE8" letter-spacing="-0.025em">Refyn<tspan fill="#F5C518">.</tspan></text>
+    <text x="18" y="86" font-family="'Geist',sans-serif" font-size="11" fill="rgba(242,239,232,.65)">Ingestion · contesto · modello dati unico</text>
+  </g>
+
+  <path d="M730,150 C824,150 824,110 918,110" fill="none" stroke="url(#frP)" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M730,170 C824,170 824,210 918,210" fill="none" stroke="url(#frE)" stroke-width="2.4" stroke-linecap="round"/>
+
+  <g transform="translate(924,72)">
+    <rect width="240" height="76" rx="3" fill="#ffffff" stroke="#2F5A8C" stroke-opacity="0.5" stroke-width="1.2"/>
+    <rect width="240" height="3" fill="#2F5A8C"/>
+    <text x="16" y="28" font-family="'Geist',sans-serif" font-weight="700" font-size="17" fill="#15171A" letter-spacing="-0.01em">Refyn Production</text>
+    <text x="16" y="46" font-family="'Geist Mono',monospace" font-size="8.5" fill="#6B7180" letter-spacing="0.06em">4 dashboard · MAPST engine</text>
+    <text x="16" y="66" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">OEE · fermi · velocità · multi-macchina</text>
+  </g>
+  <g transform="translate(924,172)">
+    <rect width="240" height="76" rx="3" fill="#ffffff" stroke="#4A7F4F" stroke-opacity="0.5" stroke-width="1.2"/>
+    <rect width="240" height="3" fill="#4A7F4F"/>
+    <text x="16" y="28" font-family="'Geist',sans-serif" font-weight="700" font-size="17" fill="#15171A" letter-spacing="-0.01em">Refyn Energy</text>
+    <text x="16" y="46" font-family="'Geist Mono',monospace" font-size="8.5" fill="#6B7180" letter-spacing="0.06em">3 dashboard · MarEnergy engine</text>
+    <text x="16" y="66" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">Vettori · costo · CO₂ · energia per stato</text>
+  </g>
+</svg></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(21,23,26,.12);border-top:1px solid rgba(21,23,26,.18);flex-shrink:0;">
+        <div style="background:var(--bone);padding:11px 16px;">
+          <div class="eyebrow" style="color:var(--compliance);margin-bottom:4px;font-size:9px;">PackML · 17 stati standard</div>
+          <div style="font-size:12px;color:var(--ink-2);line-height:1.4;">Macchine eterogenee in un unico modello dati. Cambiare costruttore non rompe nulla.</div>
+        </div>
+        <div style="background:var(--bone);padding:11px 16px;">
+          <div class="eyebrow" style="color:var(--esg);margin-bottom:4px;font-size:9px;">Agnostico al verticale</div>
+          <div style="font-size:12px;color:var(--ink-2);line-height:1.4;">Stesso layer di processing su F&amp;B, pharma, cosmesi. Si cambia solo la lettura.</div>
+        </div>
+        <div style="background:var(--bone);padding:11px 16px;">
+          <div class="eyebrow" style="color:var(--cadmio-d);margin-bottom:4px;font-size:9px;">Dataset latente</div>
+          <div style="font-size:12px;color:var(--ink-2);line-height:1.4;">5 anni di linee comparabili già monitorate. Asset proprietario non replicabile.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 05/17</div>
+    <div class="cell">PRODOTTO · ARCHITETTURA</div><div class="cell">DATA FLOW</div>
+    <div class="cell flex">input · piattaforma · due famiglie di viste</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i6">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>06</b> — PRODOTTO · ATTIVAZIONE</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="display:flex;flex-direction:column;flex:1;gap:18px;padding-top:8px;min-height:0;">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px;">Come si attiva un cliente</div>
+        <h2 class="title" style="font-size:clamp(30px,3.8vw,54px);line-height:1.0;">Setup in settimane.<br>Costo <span style="color:var(--cadmio);">zero.</span></h2>
+        <p class="lead" style="max-width:760px;margin-top:14px;font-size:14px;line-height:1.55;">Cinque passi dal contratto al primo dato in dashboard. <strong style="color:var(--ink);">Nessun hardware proprietario.</strong> La sensoristica è a carico del cliente, installata dal suo personale tecnico — il modello che scala.</p>
+      </div>
+      <div style="flex:1;display:flex;align-items:center;min-height:0;"><svg viewBox="0 0 1200 280" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block;font-family:'Geist',sans-serif;">
+  <line x1="100" y1="138" x2="1100" y2="138" stroke="rgba(21,23,26,.18)" stroke-width="1.5"/>
+  <line x1="100" y1="138" x2="1100" y2="138" stroke="#F5C518" stroke-width="2"/>
+
+  <!-- step 1 -->
+  <text x="100" y="52" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9" fill="#9DA3B0" letter-spacing="0.16em">STEP 01</text>
+  <text x="100" y="72" text-anchor="middle" font-family="'Geist',sans-serif" font-weight="700" font-size="14" fill="#15171A" letter-spacing="-0.01em">Kick-off &amp; audit</text>
+  <text x="100" y="92" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">Mappiamo PLC, sensori</text>
+  <text x="100" y="108" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">e contatori esistenti</text>
+  <circle cx="100" cy="138" r="10" fill="#F2EFE8" stroke="rgba(21,23,26,.25)"/>
+  <circle cx="100" cy="138" r="6" fill="#2F5A8C"/>
+  <text x="100" y="141" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="8" fill="#fff" font-weight="700">01</text>
+  <rect x="60" y="162" width="80" height="20" rx="10" fill="rgba(47,90,140,.08)" stroke="#2F5A8C" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="100" y="175" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9" fill="#2F5A8C" font-weight="700">REFYN</text>
+  <text x="100" y="198" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9.5" fill="#6B7180">~1 settimana</text>
+
+  <!-- step 2 -->
+  <text x="350" y="52" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9" fill="#9DA3B0" letter-spacing="0.16em">STEP 02</text>
+  <text x="350" y="72" text-anchor="middle" font-family="'Geist',sans-serif" font-weight="700" font-size="14" fill="#15171A" letter-spacing="-0.01em">Sensoristica</text>
+  <text x="350" y="92" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">Se mancano sensori, li installa</text>
+  <text x="350" y="108" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">l'elettricista del cliente</text>
+  <circle cx="350" cy="138" r="10" fill="#F2EFE8" stroke="rgba(21,23,26,.25)"/>
+  <circle cx="350" cy="138" r="6" fill="#6B7180"/>
+  <text x="350" y="141" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="8" fill="#fff" font-weight="700">02</text>
+  <rect x="310" y="162" width="80" height="20" rx="10" fill="rgba(107,113,128,.10)" stroke="#6B7180" stroke-width="0.8" stroke-opacity="0.5"/>
+  <text x="350" y="175" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9" fill="#6B7180" font-weight="700">CLIENTE</text>
+  <text x="350" y="198" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9.5" fill="#6B7180">variabile</text>
+
+  <!-- step 3 -->
+  <text x="600" y="52" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9" fill="#9DA3B0" letter-spacing="0.16em">STEP 03</text>
+  <text x="600" y="72" text-anchor="middle" font-family="'Geist',sans-serif" font-weight="700" font-size="14" fill="#15171A" letter-spacing="-0.01em">Connessione</text>
+  <text x="600" y="92" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">Integriamo i sistemi del cliente</text>
+  <text x="600" y="108" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">nella piattaforma</text>
+  <circle cx="600" cy="138" r="10" fill="#F2EFE8" stroke="rgba(21,23,26,.25)"/>
+  <circle cx="600" cy="138" r="6" fill="#2F5A8C"/>
+  <text x="600" y="141" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="8" fill="#fff" font-weight="700">03</text>
+  <rect x="560" y="162" width="80" height="20" rx="10" fill="rgba(47,90,140,.08)" stroke="#2F5A8C" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="600" y="175" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9" fill="#2F5A8C" font-weight="700">REFYN</text>
+  <text x="600" y="198" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9.5" fill="#6B7180">1–2 settimane</text>
+
+  <!-- step 4 -->
+  <text x="850" y="52" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9" fill="#9DA3B0" letter-spacing="0.16em">STEP 04</text>
+  <text x="850" y="72" text-anchor="middle" font-family="'Geist',sans-serif" font-weight="700" font-size="14" fill="#15171A" letter-spacing="-0.01em">Configurazione</text>
+  <text x="850" y="92" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">Dashboard adattate all'impianto</text>
+  <text x="850" y="108" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">+ formazione team</text>
+  <circle cx="850" cy="138" r="10" fill="#F2EFE8" stroke="rgba(21,23,26,.25)"/>
+  <circle cx="850" cy="138" r="6" fill="#2F5A8C"/>
+  <text x="850" y="141" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="8" fill="#fff" font-weight="700">04</text>
+  <rect x="810" y="162" width="80" height="20" rx="10" fill="rgba(47,90,140,.08)" stroke="#2F5A8C" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="850" y="175" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9" fill="#2F5A8C" font-weight="700">REFYN</text>
+  <text x="850" y="198" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9.5" fill="#6B7180">~1 settimana</text>
+
+  <!-- step 5 LIVE -->
+  <text x="1100" y="52" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9" fill="#9DA3B0" letter-spacing="0.16em">STEP 05</text>
+  <text x="1100" y="72" text-anchor="middle" font-family="'Geist',sans-serif" font-weight="700" font-size="14" fill="#15171A" letter-spacing="-0.01em">Live</text>
+  <text x="1100" y="92" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">Dati in tempo reale,</text>
+  <text x="1100" y="108" text-anchor="middle" font-family="'Geist',sans-serif" font-size="11" fill="#3D4148">supporto continuo</text>
+  <circle cx="1100" cy="138" r="12" fill="none" stroke="#4A7F4F" stroke-width="1" opacity="0.4"/>
+  <circle cx="1100" cy="138" r="10" fill="#F2EFE8" stroke="rgba(21,23,26,.25)"/>
+  <circle cx="1100" cy="138" r="6" fill="#4A7F4F"/>
+  <text x="1100" y="141" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="8" fill="#fff" font-weight="700">05</text>
+  <rect x="1060" y="162" width="80" height="20" rx="10" fill="rgba(74,127,79,.08)" stroke="#4A7F4F" stroke-width="0.8" stroke-opacity="0.6"/>
+  <text x="1100" y="175" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9" fill="#4A7F4F" font-weight="700">JOINT</text>
+  <text x="1100" y="198" text-anchor="middle" font-family="'Geist Mono',monospace" font-size="9.5" fill="#6B7180">ongoing</text>
+</svg></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(21,23,26,.12);border-top:1px solid rgba(21,23,26,.18);flex-shrink:0;">
+        <div style="background:var(--bone);padding:11px 16px;">
+          <div class="eyebrow" style="color:var(--quality);margin-bottom:4px;font-size:9px;">Hardware installato da Refyn</div>
+          <div style="display:flex;align-items:baseline;gap:8px;">
+            <div style="font-size:24px;font-weight:800;color:var(--quality);line-height:1;letter-spacing:-0.02em;">€0</div>
+            <div style="font-size:11px;color:var(--ink-3);">su ogni nuovo cliente</div>
+          </div>
+        </div>
+        <div style="background:var(--bone);padding:11px 16px;">
+          <div class="eyebrow" style="color:var(--compliance);margin-bottom:4px;font-size:9px;">Time-to-data medio</div>
+          <div style="display:flex;align-items:baseline;gap:8px;">
+            <div style="font-size:24px;font-weight:800;color:var(--ink);line-height:1;letter-spacing:-0.02em;">3–4</div>
+            <div style="font-size:11px;color:var(--ink-3);">settimane <span class="ph" style="font-size:8.5px;">stima</span></div>
+          </div>
+        </div>
+        <div style="background:var(--bone);padding:11px 16px;">
+          <div class="eyebrow" style="color:var(--esg);margin-bottom:4px;font-size:9px;">Modello asset-light</div>
+          <div style="font-size:12px;color:var(--ink-2);line-height:1.4;">L'on-boarding software scala senza intervento hardware nostro. 2 giorni se la linea è già pronta.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 06/17</div>
+    <div class="cell">PRODOTTO · ATTIVAZIONE</div><div class="cell">5 STEP</div>
+    <div class="cell flex">setup in settimane · asset-light · €0 hardware</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i7">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>07</b> — PRODOTTO · LE VISTE</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="display:flex;flex-direction:column;flex:1;gap:18px;padding-top:8px;">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px;">Due famiglie · sette dashboard</div>
+        <h2 class="title" style="font-size:clamp(30px,3.8vw,54px);line-height:1.0;">Stesso dato.<br>Due <span style="color:var(--cadmio);">lenti.</span></h2>
+        <p class="lead" style="max-width:680px;margin-top:14px;font-size:14px;line-height:1.55;">Sette viste in produzione su linee F&amp;B. <strong style="color:var(--ink);">Production</strong> per chi guida la fabbrica. <strong style="color:var(--ink);">Energy</strong> per chi misura l'efficienza e l'impatto.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;flex:1;min-height:0;">
+
+        <!-- REFYN PRODUCTION -->
+        <div style="display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;padding-bottom:10px;border-bottom:2px solid var(--compliance);margin-bottom:16px;">
+            <div>
+              <div style="font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.015em;line-height:1.1;">Refyn Production</div>
+              <div class="mono" style="font-size:9.5px;color:var(--ink-3);margin-top:3px;letter-spacing:.08em;">MAPST · d.factory engine</div>
+            </div>
+            <div class="mono" style="font-size:9.5px;color:var(--compliance);font-weight:700;letter-spacing:.14em;">4 DASHBOARD</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;flex:1;">
+            <div style="display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:baseline;">
+              <div class="mono" style="font-size:14px;font-weight:700;color:var(--ink);line-height:1;">01</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.005em;">Supervisione Linea</div>
+                <div style="font-size:12px;color:var(--ink-3);line-height:1.4;font-style:italic;margin-top:2px;">Cosa sta succedendo ora, su ogni macchina</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:baseline;">
+              <div class="mono" style="font-size:14px;font-weight:700;color:var(--ink);line-height:1;">02</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.005em;">Analisi Fermi</div>
+                <div style="font-size:12px;color:var(--ink-3);line-height:1.4;font-style:italic;margin-top:2px;">Perché la linea si ferma · per quale causa</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:baseline;">
+              <div class="mono" style="font-size:14px;font-weight:700;color:var(--ink);line-height:1;">03</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.005em;">Velocità &amp; Qualità</div>
+                <div style="font-size:12px;color:var(--ink-3);line-height:1.4;font-style:italic;margin-top:2px;">Quanto produci davvero · con quale scarto</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:baseline;">
+              <div class="mono" style="font-size:14px;font-weight:700;color:var(--ink);line-height:1;">04</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.005em;">Vista Multi-Macchina</div>
+                <div style="font-size:12px;color:var(--ink-3);line-height:1.4;font-style:italic;margin-top:2px;">Dov'è il bottleneck oggi · per quanto resiste</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--cline);">
+            <div style="font-size:11.5px;color:var(--ink-2);line-height:1.45;"><strong style="color:var(--ink);">Per chi:</strong> Plant Manager, Capo Stabilimento, Responsabile Produzione.</div>
+          </div>
+        </div>
+
+        <!-- REFYN ENERGY -->
+        <div style="display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;padding-bottom:10px;border-bottom:2px solid var(--esg);margin-bottom:16px;">
+            <div>
+              <div style="font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.015em;line-height:1.1;">Refyn Energy</div>
+              <div class="mono" style="font-size:9.5px;color:var(--ink-3);margin-top:3px;letter-spacing:.08em;">MarEnergy · d.factory engine</div>
+            </div>
+            <div class="mono" style="font-size:9.5px;color:var(--esg);font-weight:700;letter-spacing:.14em;">3 DASHBOARD</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;flex:1;">
+            <div style="display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:baseline;">
+              <div class="mono" style="font-size:14px;font-weight:700;color:var(--ink);line-height:1;">05</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.005em;">Distribuzione Energetica</div>
+                <div style="font-size:12px;color:var(--ink-3);line-height:1.4;font-style:italic;margin-top:2px;">Dove va l'energia che entra in fabbrica</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:baseline;">
+              <div class="mono" style="font-size:14px;font-weight:700;color:var(--ink);line-height:1;">06</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.005em;">Costo &amp; CO₂ per Unità</div>
+                <div style="font-size:12px;color:var(--ink-3);line-height:1.4;font-style:italic;margin-top:2px;">Quanto costa · quanto emette ogni pezzo</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:baseline;">
+              <div class="mono" style="font-size:14px;font-weight:700;color:var(--ink);line-height:1;">07</div>
+              <div>
+                <div style="font-size:14px;font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.005em;">Energia per Stato</div>
+                <div style="font-size:12px;color:var(--ink-3);line-height:1.4;font-style:italic;margin-top:2px;">Quanto bruci ferma · quanto in produzione</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--cline);">
+            <div style="font-size:11.5px;color:var(--ink-2);line-height:1.45;"><strong style="color:var(--ink);">Per chi:</strong> Energy Manager, Direzione Industriale, controllo di gestione.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 07/17</div>
+    <div class="cell">PRODOTTO · VISTE</div><div class="cell">PRODUCTION + ENERGY</div>
+    <div class="cell flex">7 dashboard · 2 famiglie · stesso dato</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div><div class="slide" id="i8">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>08</b> — TRACTION</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px;padding-top:6px;">
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:44px;align-items:end;">
+        <h2 class="title" style="font-size:clamp(34px,4.4vw,62px);line-height:.98;">Dieci clienti.<br>Settanta linee.<br><span style="color:var(--esg)">Zero churn.</span></h2>
+        <p class="body-txt" style="font-size:14px;line-height:1.55;max-width:420px;">Da 10 clienti a 70 linee senza nuova acquisizione. La crescita arriva <strong style="color:var(--ink)">dall'interno</strong> — il segnale più forte di product-market fit.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:0.8fr 0.8fr 1.3fr 0.8fr 1.3fr;gap:24px;padding:20px 0;border-top:1px solid var(--cline);border-bottom:1px solid var(--cline);align-items:end;">
+        <div><div class="stat-num" style="font-size:36px;color:var(--ink-2);">10</div><div class="stat-lbl" style="margin-top:8px;">Clienti F&amp;B attivi</div></div>
+        <div><div class="stat-num" style="font-size:36px;color:var(--ink-2);">70</div><div class="stat-lbl" style="margin-top:8px;">Linee in produzione</div></div>
+        <div><div class="stat-num" style="font-size:62px;color:var(--esg);">0%</div><div class="stat-lbl" style="margin-top:8px;">Churn · 24 mesi</div></div>
+        <div><div class="stat-num" style="font-size:36px;color:var(--ink-2);">7×</div><div class="stat-lbl" style="margin-top:8px;">Espansione media</div></div>
+        <div><div class="stat-num" style="font-size:62px;color:var(--esg);">~120%</div><div class="stat-lbl" style="margin-top:8px;">NRR storico · 24m</div></div>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px;">Clienti rappresentativi</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+          <div class="clientcard"><div class="clientname">Mutti</div><div class="clienttag">Pomodoro · F&amp;B</div></div>
+          <div class="clientcard"><div class="clientname">Rocchetta</div><div class="clienttag">Beverage</div></div>
+          <div class="clientcard"><div class="clientname">Perfetti</div><div class="clienttag">Confectionery</div></div>
+          <div class="clientcard"><div class="clientname">Fonte Alta V. Po</div><div class="clienttag">Beverage</div></div>
+          <div class="clientcard"><div class="clientname" style="font-size:13px;color:var(--ink-3);">+ 6 altri</div><div class="clienttag">in autorizzazione</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 08/17</div>
+    <div class="cell">TRACTION</div><div class="cell">CLIENTI REALI</div>
+    <div class="cell flex">espansione interna 7× · 0% churn 24 mesi</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i9">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>09</b> — IL MERCATO</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:32px;padding-top:6px;">
+      <div>
+        <h2 class="title" style="font-size:clamp(36px,4.4vw,62px);line-height:1.0;">Perché packaging.<br>F&amp;B per <span style="color:var(--cadmio);">cominciare.</span></h2>
+        <p class="body-txt" style="max-width:720px;margin-top:14px;font-size:14px;line-height:1.55;">Refyn è un software per linee packaging. PackML è lo standard de facto delle macchine di confezionamento. Stessa architettura, settori diversi: F&amp;B, pharma, cosmesi, personal care.</p>
+      </div>
+      <div style="border:1px solid var(--ink);">
+        <div style="display:grid;grid-template-columns:0.38fr 1.62fr;">
+          <div style="padding:18px 22px;background:var(--ink);color:var(--bone);display:flex;flex-direction:column;justify-content:center;">
+            <div class="eyebrow" style="color:rgba(242,239,232,.5);margin-bottom:6px;font-size:9.5px;">Mercato packaging IT 2024</div>
+            <div style="font-size:22px;font-weight:800;color:var(--bone);line-height:1.05;letter-spacing:-.01em;">€10,06 mld</div>
+            <div class="mono" style="font-size:10px;color:rgba(242,239,232,.55);margin-top:6px;">fatturato costruttori · UCIMA 2024</div>
+          </div>
+          <div style="padding:14px 0;display:grid;grid-template-columns:repeat(4,1fr);align-items:stretch;">
+            <div style="padding:0 18px;border-right:1px solid var(--cline);">
+              <div style="font-family:var(--mono);font-size:26px;font-weight:800;color:var(--ink);line-height:1;">56%</div>
+              <div class="stat-lbl" style="font-size:9px;margin-top:6px;">QUOTA F&amp;B</div>
+              <div class="body-txt" style="font-size:11px;margin-top:6px;line-height:1.4;">Il segmento più grande. Dove partiamo.</div>
+            </div>
+            <div style="padding:0 18px;border-right:1px solid var(--cline);">
+              <div style="font-family:var(--mono);font-size:26px;font-weight:800;color:var(--ink);line-height:1;">17,3%</div>
+              <div class="stat-lbl" style="font-size:9px;margin-top:6px;">QUOTA PHARMA</div>
+              <div class="body-txt" style="font-size:11px;margin-top:6px;line-height:1.4;">€1,74 mld. Ticket 2–3× più alto.</div>
+            </div>
+            <div style="padding:0 18px;border-right:1px solid var(--cline);background:rgba(245,197,24,.06);">
+              <div style="font-family:var(--mono);font-size:26px;font-weight:800;color:var(--cadmio-d);line-height:1;">~1.500</div>
+              <div class="stat-lbl" style="font-size:9px;margin-top:6px;color:var(--cadmio-d);">WEDGE F&amp;B MID-MARKET ★</div>
+              <div class="body-txt" style="font-size:11px;margin-top:6px;line-height:1.4;">PMI Nord IT. ACV €4–16K.</div>
+            </div>
+            <div style="padding:0 18px;">
+              <div style="font-family:var(--mono);font-size:26px;font-weight:800;color:var(--ink);line-height:1;">50%</div>
+              <div class="stat-lbl" style="font-size:9px;margin-top:6px;">IT + DE GLOBALE</div>
+              <div class="body-txt" style="font-size:11px;margin-top:6px;line-height:1.4;">Metà mercato mondiale macchine.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mono" style="font-size:9px;color:var(--ink-4);">UCIMA 2024 · SACE/Officine PNRR · CRIBIS Margò 2024.</div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 09/17</div>
+    <div class="cell">MERCATO</div><div class="cell">PACKAGING IT</div>
+    <div class="cell flex">€10B IT · F&B come wedge · espansione 2028+</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i10">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>10</b> — BUSINESS MODEL</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px;padding-top:6px;">
+      <div>
+        <h2 class="title" style="font-size:clamp(36px,4.4vw,62px);line-height:1.0;">Un solo dato.<br><span style="color:var(--cadmio);">Tre prezzi diversi.</span></h2>
+        <p class="body-txt" style="max-width:620px;margin-top:14px;font-size:14px;line-height:1.55;"><strong style="color:var(--ink);">Refyn non vende un software: vende un sistema operativo per linea</strong>, con prezzo legato al valore catturato. È il modello Veeva, Samsara, Procore (multipli 12–18×).</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 0.7fr;border:1px solid var(--ink);">
+        <div class="tier" style="border-right:1px solid var(--cline);">
+          <div class="tg"><span class="sq" style="background:var(--compliance);"></span><span class="tn">01 · CONNECT</span></div>
+          <div class="tname">Visibilità</div>
+          <div class="tp">€2.5K<span style="font-size:12px;color:var(--ink-3);">/anno</span></div>
+          <div class="td">OEE + produzione in tempo reale. Tier d'ingresso.</div>
+        </div>
+        <div class="tier" style="border-right:1px solid var(--cline);background:rgba(245,197,24,.10);position:relative;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--cadmio);"></div>
+          <div class="tg"><span class="sq" style="background:var(--cadmio);"></span><span class="tn">02 · INSIGHTS ★</span></div>
+          <div class="tname">Efficienza + Energia</div>
+          <div class="tp" style="color:var(--cadmio-d);">€6K<span style="font-size:12px;color:var(--ink-3);">/anno</span></div>
+          <div class="td">Energia per stato, costi per unità. Il punto giusto per le PMI F&amp;B.</div>
+        </div>
+        <div class="tier" style="border-right:1px solid var(--cline);">
+          <div class="tg"><span class="sq" style="background:var(--esg);"></span><span class="tn">03 · PERFORMANCE</span> <span style="background:rgba(178,58,42,.1);color:var(--quality);padding:1px 5px;border-radius:2px;font-size:8.5px;font-weight:700;letter-spacing:.05em;margin-left:4px;">M12</span></div>
+          <div class="tname">Operator Performance</div>
+          <div class="tp">€18K<span style="font-size:12px;color:var(--ink-3);">/anno</span></div>
+          <div class="td">Disponibile dal mese 12. Capex €100K nel R1.</div>
+        </div>
+        <div style="padding:22px;display:flex;flex-direction:column;justify-content:center;gap:14px;background:var(--ink);color:var(--bone);">
+          <div class="eyebrow" style="color:rgba(242,239,232,.5);">ACV ponderato</div>
+          <div><div style="font-size:30px;font-weight:800;color:var(--bone);line-height:1;">€4.25K</div><div class="stat-lbl" style="color:rgba(242,239,232,.55);">Y1–Y2</div></div>
+          <div><div style="font-size:30px;font-weight:800;color:var(--cadmio);line-height:1;">€6.4K</div><div class="stat-lbl" style="color:rgba(242,239,232,.55);">Y3</div></div>
+        </div>
+      </div>
+      <div class="mono" style="font-size:10px;color:var(--ink-3);line-height:1.6;">Fee legacy €1K/anno · piano migrazione Y1 70% → Fase 1 (€4,3K) · Y3 ACV €6.4K con 20% upgrade Fase 2. <strong style="color:var(--ink-2);">Forward curve da validare nel test pricing 6 mesi sui 10 clienti.</strong></div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 10/17</div>
+    <div class="cell">BUSINESS MODEL</div><div class="cell">3 TIER</div>
+    <div class="cell flex">da fee di servizio a valore catturato</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i11">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>11</b> — POSIZIONAMENTO</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="margin-top:8px;margin-bottom:22px;display:grid;grid-template-columns:1.3fr 0.7fr;gap:44px;align-items:end;">
+      <h2 class="title" style="font-size:clamp(32px,4vw,56px);line-height:1.02;">Altri fanno i pezzi.<br>Refyn fa <span style="color:var(--cadmio);">l'architettura.</span></h2>
+      <p class="body-txt" style="font-size:13.5px;line-height:1.55;max-width:380px;">Otto criteri. Tre differenziali architetturali (in grassetto, evidenziati in cadmio). <strong style="color:var(--ink);">La combinazione non esiste altrove.</strong></p>
+    </div>
+    <table class="cmp" style="margin-top:8px;">
+      <thead><tr><th></th><th class="me">REFYN</th><th>MIRAITEK</th><th>ZERYNTH</th><th>40FACTORY</th><th>GUIDEWHEEL <span style="font-weight:400;text-transform:none;">(US)</span></th></tr></thead>
+      <tbody>
+        <tr><td>OEE + produzione</td><td class="me">●</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+        <tr style="background:rgba(245,197,24,.06);"><td><strong style="color:var(--ink);">Architettura PackML nativa</strong></td><td class="me">●</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+        <tr style="background:rgba(245,197,24,.06);"><td><strong style="color:var(--ink);">Disponibilità vs performance con buffer</strong></td><td class="me">●</td><td>○</td><td>○</td><td>○</td><td>◐</td></tr>
+        <tr><td>Energia × stato macchina</td><td class="me">●</td><td>○</td><td>○</td><td>○</td><td>●</td></tr>
+        <tr><td>Dati certificati MID</td><td class="me">●</td><td>○</td><td>○</td><td>○</td><td>○</td></tr>
+        <tr><td>Scope 1–2 — dati GHG auditabili</td><td class="me">●</td><td>○</td><td>○</td><td>○</td><td>◐</td></tr>
+        <tr><td>Modulo ESG/CSRD strutturato</td><td class="me">◐</td><td>○</td><td>○</td><td>○</td><td>◐</td></tr>
+        <tr style="background:rgba(245,197,24,.06);"><td><strong style="color:var(--ink);">Dataset packaging · in costruzione</strong></td><td class="me">◐</td><td>○</td><td>○</td><td>○</td><td>◐</td></tr>
+      </tbody>
+    </table>
+    <div class="mono" style="font-size:9px;color:var(--ink-4);margin-top:14px;line-height:1.6;">● presente · ◐ in costruzione · ○ assente · Competitor diretti IT: Miraitek, Zerynth, 40Factory · Guidewheel (USA) come benchmark globale.</div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 11/17</div>
+    <div class="cell">POSIZIONAMENTO</div><div class="cell">COMBINAZIONE UNICA</div>
+    <div class="cell flex">architettura PackML + buffer + dataset</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide dark" id="i12">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>12</b> — LA VISIONE</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="flex:1;display:grid;grid-template-columns:1.15fr 0.85fr;gap:60px;align-items:center;padding-top:8px;">
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px;">Dove può arrivare</div>
+        <h2 class="title" style="font-size:clamp(32px,4vw,60px);line-height:.98;">Oggi un prodotto.<br>Domani il <span style="color:var(--cadmio)">dataset</span><br>del packaging.</h2>
+        <p class="lead" style="max-width:480px;margin-top:24px;font-size:15px;line-height:1.55;">Ogni linea aggiunge dati comparabili che nessuno possiede. Con la scala nasce il <strong style="color:var(--bone)">benchmark di settore</strong>. <span style="color:var(--bone);font-weight:600;">È l'effetto rete del dato.</span></p>
+        <div style="max-width:480px;margin-top:20px;border-left:2px solid var(--cadmio);padding-left:14px;">
+          <p class="lead" style="margin:0;font-size:14.5px;line-height:1.55;">Veeva nel pharma. Samsara nella logistica.<br>Il software apre la porta. <strong style="color:var(--bone);">Il dato costruisce il fossato.</strong></p>
+        </div>
+      </div>
+      <div style="border-left:1px solid var(--cline-d);padding-left:40px;">
+        <div class="eyebrow" style="color:var(--cadmio);margin-bottom:22px;">Il fossato</div>
+        <p style="font-size:clamp(22px,2.4vw,30px);line-height:1.25;font-weight:600;color:var(--bone);letter-spacing:-.01em;margin:0;">L'AI può replicare il software.</p>
+        <p style="font-size:clamp(22px,2.4vw,30px);line-height:1.25;font-weight:600;color:var(--cadmio);letter-spacing:-.01em;margin-top:14px;">Non può replicare cinque anni di linee.</p>
+        <p class="mono" style="font-size:12px;color:rgba(242,239,232,.55);margin-top:24px;letter-spacing:.04em;">Può solo comprarci sopra.</p>
+      </div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 12/17</div>
+    <div class="cell">VISIONE</div><div class="cell">DATA MOAT</div>
+    <div class="cell flex">effetto rete del dato · benchmark di settore</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i13">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>13</b> — ROADMAP</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:32px;padding-top:6px;">
+      <div>
+        <h2 class="title" style="font-size:clamp(34px,4.4vw,62px);line-height:1.0;">Dal prodotto<br>al <span style="color:var(--cadmio);">dataset.</span></h2>
+        <p class="body-txt" style="max-width:600px;margin-top:14px;font-size:14px;">Quattro milestone in 24 mesi · scenario base del piano industriale.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink);">
+        <div style="background:var(--bone);padding:22px 20px;display:flex;flex-direction:column;gap:10px;">
+          <div class="mono" style="font-size:9.5px;color:var(--cadmio);letter-spacing:.14em;font-weight:700;">0–6 MESI</div>
+          <div style="font-size:18px;font-weight:700;color:var(--ink);line-height:1.15;letter-spacing:-.01em;">Brand &amp; pricing</div>
+          <div class="body-txt" style="font-size:12px;line-height:1.5;">Lancio Refyn, 3 livelli Fase 1, upsell sui 10 clienti legacy.</div>
+          <div class="mono" style="font-size:10.5px;color:var(--cadmio-d);font-weight:600;margin-top:auto;padding-top:8px;border-top:1px solid var(--cline);">→ 15 clienti · ARR €54K</div>
+        </div>
+        <div style="background:var(--bone);padding:22px 20px;display:flex;flex-direction:column;gap:10px;">
+          <div class="mono" style="font-size:9.5px;color:var(--cadmio);letter-spacing:.14em;font-weight:700;">6–12 MESI</div>
+          <div style="font-size:18px;font-weight:700;color:var(--ink);line-height:1.15;letter-spacing:-.01em;">Clienti standalone</div>
+          <div class="body-txt" style="font-size:12px;line-height:1.5;">Primi clienti fuori network. CAC misurato. Apre la chiusura del Round 2.</div>
+          <div class="mono" style="font-size:10.5px;color:var(--cadmio-d);font-weight:600;margin-top:auto;padding-top:8px;border-top:1px solid var(--cline);">→ 22 clienti · ARR €103K</div>
+        </div>
+        <div style="background:var(--bone);padding:22px 20px;display:flex;flex-direction:column;gap:10px;position:relative;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--cadmio);"></div>
+          <div class="mono" style="font-size:9.5px;color:var(--cadmio);letter-spacing:.14em;font-weight:700;">12–18 MESI ★</div>
+          <div style="font-size:18px;font-weight:700;color:var(--ink);line-height:1.15;letter-spacing:-.01em;">Operator Performance</div>
+          <div class="body-txt" style="font-size:12px;line-height:1.5;">Modulo nuovo sui dati esistenti. Scompone la perdita in 3 cause. Validato dal cliente Valza.</div>
+          <div class="mono" style="font-size:10.5px;color:var(--cadmio-d);font-weight:600;margin-top:auto;padding-top:8px;border-top:1px solid var(--cline);">→ Apre R2 €1M @ €8M</div>
+        </div>
+        <div style="background:var(--bone);padding:22px 20px;display:flex;flex-direction:column;gap:10px;">
+          <div class="mono" style="font-size:9.5px;color:var(--cadmio);letter-spacing:.14em;font-weight:700;">18–24 MESI</div>
+          <div style="font-size:18px;font-weight:700;color:var(--ink);line-height:1.15;letter-spacing:-.01em;">Espansione + benchmark</div>
+          <div class="body-txt" style="font-size:12px;line-height:1.5;">Pilota internazionale · partnership OEM · Series A.</div>
+          <div class="mono" style="font-size:10.5px;color:var(--cadmio-d);font-weight:600;margin-top:auto;padding-top:8px;border-top:1px solid var(--cline);">→ 33 clienti · ARR €242K</div>
+        </div>
+      </div>
+      <div class="mono" style="font-size:10px;color:var(--ink-3);line-height:1.55;">Multi-round path: R1 €500K (Q4 2026) → R2 €1M (Q1 2028) → R3 €2M (Q3 2028). Ogni fase presuppone il completamento della precedente.</div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 13/17</div>
+    <div class="cell">ROADMAP</div><div class="cell">24 MESI · STIME</div>
+    <div class="cell flex">prodotto → piattaforma → dataset</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i14">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>14</b> — TEAM &amp; BACKBONE</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="margin-top:6px;margin-bottom:18px;">
+      <h2 class="title" style="font-size:clamp(32px,4vw,56px);line-height:1.0;">Tre founder dentro<br>un gruppo da <span style="color:var(--cadmio);">€250M.</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1.05fr 0.95fr;gap:36px;flex:1;align-items:stretch;min-height:0;">
+
+      <!-- LEFT: 3 founder -->
+      <div style="border:1px solid var(--ink);display:flex;flex-direction:column;">
+        <div style="padding:14px 18px;border-bottom:1px solid var(--cline);display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;flex:1;">
+          <div style="width:52px;height:52px;border-radius:50%;background-image:url('data:image/jpeg;base64,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');background-size:cover;background-position:center;border:1px solid var(--cline);"></div>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1.1;">Pablo Degl'Innocenti</div>
+            <div class="mono" style="font-size:8.5px;color:var(--ink-3);letter-spacing:.1em;margin-top:3px;">CO-FOUNDER · CEO</div>
+            <div class="body-txt" style="font-size:11px;margin-top:6px;line-height:1.45;">EMBA SDA Bocconi · EBITDA × 2 in 24 mesi nella parent · ESG/CSRD framework.</div>
+          </div>
+          <div class="mono" style="font-size:8px;color:var(--ink-4);letter-spacing:.08em;background:rgba(21,23,26,.04);border:1px solid var(--cline);border-radius:3px;padding:1px 5px;align-self:start;">PROPOSED</div>
+        </div>
+        <div style="padding:14px 18px;border-bottom:1px solid var(--cline);display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:center;flex:1;">
+          <div style="width:52px;height:52px;border-radius:50%;background-image:url('data:image/jpeg;base64,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');background-size:cover;background-position:center;border:1px solid var(--cline);"></div>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1.1;">Matteo De Simone</div>
+            <div class="mono" style="font-size:8.5px;color:var(--ink-3);letter-spacing:.1em;margin-top:3px;">CO-FOUNDER · CTO</div>
+            <div class="body-txt" style="font-size:11px;margin-top:6px;line-height:1.45;">Industrial automation engineer · 8+ anni · R&amp;D Manager su ~50 progetti (Nestlé, Coca-Cola, PepsiCo).</div>
+          </div>
+        </div>
+        <div style="padding:14px 18px;display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;flex:1;">
+          <div style="width:52px;height:52px;border-radius:50%;background-image:url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAEsASwDASIAAhEBAxEB/8QAHQAAAQQDAQEAAAAAAAAAAAAAAgEDBAUABgcICf/EAD8QAAIBAwMCBAQEBAUDBAIDAAECAwAEEQUSITFBBhNRYQcicYEUMpGxCCOh8BVCwdHhJDNSFkNi8XKSU3Oy/8QAGgEAAgMBAQAAAAAAAAAAAAAAAAECAwQFBv/EACgRAAICAQQBBAICAwAAAAAAAAABAhEDBBIhMUEFEzJRFCIjYSSR0f/aAAwDAQACEQMRAD8A9H0nOfasJpCTWUmI9AxNHz0oRycUCsH3pevNKQo4pOlMBaTilVh0rMAmkNCgZpecUmccUVADEkkiEjbkfSol/cXQt3a1tlnkHSMybN33PerEAk8nikeJG4YDng4pjOUa58QLvRNVEV9oNxFAzAR3CSh4891cdVI9a6Fpes2uoabFfRZWORckNwVPoa134jeHINQ02RZjN5gUiGeMgO4//ifPB9ifpXnPS/GWs+FNatoo9SbU9OjVC0Mg2sAG5jYdiCCKOyVJ9G0fGS7zceNr2AJugvLRoyZsE/LtfAHOCGFcOjnSJXaFl3Rvui45I9PtzV7428Ry6vea7IkHkDUbpZolz+QDop9q0eyluEt33BxIgJwyHBppD6NtsvFmqaf5hsLtrSKQZkVV3I49GWpdh451O01WK9snksC4AbyZGMbH12n8g9q0Ua2ZFC3A/lunl5P+UZ6fY1X3s09tOElUOexXOHHbBqVMi2d5h+LvjWy2T2muSCQfK0NxGjxkevTOfvU+9/iB8U3emfgL23s495+e4to8S8dMBjtBz3risOolmdWkOGUOOeRkDFNTXrk+Xt83cpK4A/MO1FMOD0do3x/uE8PyfjC737DKNJCvl59PlIx9cVYaV8e9OvbmSOdZLCZ41URzN8me7K3TFeYLe8E2YZEUqyb49pwcjr96djjF1Dm3uUaMHkTD8jehooOD17pHxi0uC5iguHMtu3/vo2fviur6Nr2mapDHPY30FwrjI2OCf0r57x3ktnKkczqrY6pJkH6g4z9RVvonivVNAvEbT9RniTzRIoifDqfoaTQNWfQlSG5Boh78V56+FHx5tbmeDTPE06hZDsF6RtKN2Ei+/wD5Cu/29xDdQrLBKkkbjKsrZBH1qPRBof4rMelNF9hAJp5DlaYCUtLik6UAIaEg9qKsoAQg57VhpTSUAZWDrWCloAysrKXJoArjSUpoSQKiAtDu9qzd7VnGOlMBDzSDg0tZg0gMzg0q9awqMUvy0AYB60jMB3ou1IqLjJGaYzFdfXH1oXnjEiruGTULVbP8WnlmeeFM8mF9rfY9qr59EgERiOqalEZfljmMobDdgcjrRQBePnA8NX6Bisnklkb0I715L+I8+mXcE8lmEt7yG4MjIDvLA8OMjp84JweoNdj+IPjPUdK8H6naarNb3U0RMEcmTFMGPy5x0brzXmLXdUWXVElQeUJDgANxtUd/uM/eiyxIbF1aXttlXLjG1guQw+1V2otdrCWsVEyR8SAnDr9u4PqKppLj8JqMjqTsZyzD2Jq2EonUFXCTj/tydQf/AIuO4I796lQNgW9xBfIbe7i/CzA4LFeD6Bge/vUeW1Ow2kpLKP8AtEdV+h60lxdCCQG8ty0J+Qg/mhbuue49P+KlpsMQjkk3xtjyrjHKHsG9vepdEOyuBmtpEkfErxDkY/7sff7ipVm8UWowTowa1mjdFbPCsy4APuM1k+ZAwkjHmocsobqf/Nff9/rVdKTiSKIhd4y0TcBvRlPY+3/1TE+AbOUx5hkyrROSD/mjP0p+8untrqO7hUJuXlhyjHuPpTeRqCeao8u+iwGKnaW9/rU7TTMkyxz28bhhuLAY4/8Akp/0p8CCh1eGVAZYoTCeHVx+Un09BU20SKcA2bCROpiZgR9vX7YNRL6w00yZNrNAG/8AdgG5D9qYt9DQsJbLU/mHIYELj9cUuBqzYVs2dBNBIx2fmjPzEfQ9fsa3/wCFnxD8TeF2D6dfm4sQcSW0jb0B+h5U/SubW8etQMWacNLgFZEwCfqOjCpFncLLeAvmw1I8q4BEc36/sai0TpHuPwX8QtF8U2CSxXKwXWP5kEjYZW749R71tdlqSsMOQCHCnnpnofvXha01G6tpkguh+FuN2Y54z8pb/Y10bwv8VNU0+8jXUI96iLYdhPz46Hn0NQQnE9djBXIoT0qh8CeJ9N8UaBBqFhcRuWUeagbJjbuDV+ORTICHBFCSR2o+gpMZoAGspTSHrQAo6VgrKygDKysHOaWgCu4oWwD9aXFC2M0gENYuaSlpgFWUnWsANAC4z/8AdZge1ZzWd6VAYTikDHOAKcA4pABRQIzAx8wrV/iZ4gs/DXha5u5ni3SDy4o2bG5z0q81e9SysZp3dVEaFiWOBXkP4seLdT1pma71Nb+KR8RRRLtjiXOM57/X2ookka342uLzVYHuJGmJlbeXkbOScj17GtSW3cWMUU6uQI9rOUIYc4B/rirPxM73Xhc7VDyll8wjnJUjkVUaXbTwaY7ZcDMSKAeo5LE/fFQRfRTa3ptyJlaJPNAAGB+Y49qipcMlkhGVkiJQg9x6H++1bldwyT2ySuEEigEb16ceo5qBqektc2+SoWUqGbv9DnvVimQlAr7KZNQtNrhTMo2Oh/8AdTt9/Q+o96j6TN+HunsZctGA20sOn/FZHZS2jJMynKgggHqO/NTYrZLqa2vmIEsbFZuPzqB+b644P2qVojtDngWSMSISuATGw6g9x7/8VBuIRJGYwqscbgF7d8qfQ+lSbGVrW5msZWYQs58qTup7Ee/T+zS3kZiKSMmMMcqDgA9dyH0PUqftTTE0U0bwxSCSSMhk6Mh2n6EHI/SrWEQ3e2QP/Nz0J2sD6gj7etJcx2t6rFSEkPGdvGfRh/rVd+GubNjmJk9G/Mp/voafYqou8S7yZAXwPnmR/LlT3bAwfuPvTlvI80m6ExPCvOI1CTqPUjo32puwvRPCS8RJQY4Pzp7g9SO/+9H/AIfBcyAqwtpicrMmTG59wPyn3GMdxUSSJUEjm7xHMqMp+bevUdj9/UfpVhqluk2nRtdgBd+xjuGB3Uhv8v3/AKVrubiK4FrqCypL1ilBGc+x/wA30rYdOupI7F7bUkWRZsoHAyrLjv6/vUHxyS7GPx9zYhbXVd01k52pcMPmjPo1bBbIptDn+aVX15I7MDVOLGbTleBwLzTXG3Ycs8Q9PcUdtNLpAityolsn5hkDcAentR2OjoXwt8WXnhHxVBe29xiyuHAu1HR0Jxkjsy17L0+8juraOaN1ZXUMrA8EHvXz/aZWUhSeTlW9frXoD+GX4h3OoSDwrqkgLwxE2zMeSB/l9+KaZXOPk9E9aSm7d9604aCAlZS4pKAMNZ3pe1JQBg60RFIMUtAFYeBQUZOabbGaQUJ3rKQtWBs0x0EDilzQA0WRSsVBZpTQk88UqnFMAwcdqxztUselYMHtVT4s1NdI0C8vmBIhiZ8epxxTA4f/ABPeMmaOLw1pl5taZgtyyN+XJ6H7c1xA3ptbW4glupHjjCx7AoZXHfPp60uv6jca54iu7++l3sshYnoAfQD0prRdLfUNd2o7eUEUOD06ZPHrUXJJWy6EW3SEit47q1SCJGj+YnafU+gq7tdGinhWFUIYDsOhz/xW22/h23jWMiILs5GOpNWUOnoF+ZBjGAR1rDLN9HShpnXJzm70WY3aD5QrEhiG6emKWXQ/kMUXDooKBjjd610GTTIlXPmEc91yeaFdMT8SGxlgBhu4HoKXv0SelOY3nhtjOyAAI5ypHTPuO31/agg8OXFuxzFglifsRg/XvXXE0qPy8LGCoGAD3FKmkBwrmNT3wOxp/ki/DZx+38LiWWVZI23Zyvt6Eeo/bFQ7rw9dJK8Tqzr+XI9vSu13ejRMTNjY2OcDOaUaOkpAYKT6jrUlqkReiZwJ9Emich41Xb1Z4wQ39+tSp9KP4VN6LJF/lO7BH3Fdpu/D9vKvMYT0fA/aquXwpGpbCowbqFXAIqa1SZGWhkjjkWm28UuVM0bsMcgHcP6U5HazQZRVWQtyyoSocDocdQfcfTpXUJPB9s2QYpFI6bSCD9j/AL1BuPDIizA8Tuj5I7hT6juP1qxZ4spelmjQpV/F2vkS5fn5Cy5Kn3A/cU5D5yW34K4C/IQBk8OCOoPT7+1bcPDMhmKNKd7L8vmKckezdGH9aak8NXLQESRmeM8EKMbT2JHUfWj3Ysj7Ml4K20ut0UaszbpIflOM5dDgg+2AKdFpHcwGCa3Qo5BAD8A+oqwTSZhZiJA+VkJxJwckYx98fShtbKRHKEsrg8q3f6elLevAbGa9JZ3GnyyRFGeLOQOuD9fcVJ8O+IbjQ9es9UtCUlikBilIxtP/AIsK2w2MotQHjypyVbp9vatf1rR7gwkWhd1dcbHHKN29x/WrMckyvJBpHtb4deKLTX9CtbnzEFw8YLx7hkHvW2jBrxH8GPE2peF/E9vJqdvcFIf5cm3O0BsA49a9oafdpdQpLGcqyhgfarGjMS+9JS+9JSAw0lLS4oAGlzS1lAFS1A1EaGo2MA0ucVhNJkU7AIGi7UIrO9FgFSg0NZ2oAdU4rh/8UnjCSx0NPD1jIVluvmnZeCEHb712meVYoyznAArxv8ZdebxJ8QL6RDtt7djBEM54Bxn6k/tTscVbNS0+032O4nJZ9zse561vfw609PLmv2AzI2FHtWkXk6RwQ2UXGTgY7+/3/aur+GLYW2gW0YGPkzWTUTqJ0NJBORaIATzR7RQR9j3oiWNc9s68UKiYz39qKGH+bnHeiDYGQODxT8IGMNwc9Kg5FigOxomCuM80+EQJt24YHPNNYdMAYIqQFYqCRznrUbLEhPKV3UcYHNJHEuRxjFORLhPm5OcZ7U8se18gdeuKLHtI4gXGQDgcEe9A9ohz8hwasAoQZI3HoRjrRLH/AOSAA8delFjpFaLFePk/r1pqfS4pRteMfVeDVxs3EnjHagdhnITkd6W5htRQPpsKxlHjD88b1/vmml0yBWMnl7WIxkHqKu235OdpU8/emmXA5GSeM09zIvFF+CguNNSQFW+ZcYXI5H0qHPoyyxqWiQPGcDjrWziEncHZT6Y9KVkBQAjkVKOSRXPTwNYFjIIfLZFKkchhkH71qGuQzWV/HFDuXcCrkHnnsK6okKTR7GX5fStL+IWlrcwboAxcfmZeorXgyVJGHU4FsdHP9Gjew165uHkkksXKCS1zlGA6ck/m+le2fhvf2mpeFrK6s3DRNGAATkj2NeHtVuvLuLGCRSxjXdz3OCB+9elP4VvEdrd+HLjRXcLe2kmcE/nQ9D/pXU8HCkjuZoRjFYmSMmsxSImClpKIelAGGkojihxQBUkYoGozQGoDAxzSYI5ojSHkd6ZOhFJNGvNCq0tAqCpKwVlFiNZ+Jutpofg/UL8tho4W2kdQx4FeJRdsHnuJP/LcQTyWPT969NfxV6m1n4LgsEzuvJwHweiLyf64ryhPOwnjTO5Ty31/sUE4lxoyPd69EHOQrckf36V3G1+WyiQdNoH0rjfgdcX+8jLu/JPpXYIGH4dAD26Vh1P0dPRrySARkCsyd4UHIpsNjr09axQWfOMCsLOpFEpSVXA60/GAcGQ59Kagjy+ASMD9KmwBTGxK5I7DrVbZekOpH3IOe/FS4lwCMjJ55pLcK0ZzggCnDHnn5uvbtQMUL8pGO/pTiK3tRKoGNzD068U5sVm6dD+lAzIxuJAGD6+lGEVjkZ9qdt1XvnJP2FOCNiCQCoFAEVo0AwSeTTU6gE45yOlTXCg7jnBHBxzUR9rckZpUBGkhCoNwGfbtTbRggYPT25qU0TY/Kf06im3ilPUAgDOKkMiOoQYzj/WmzyMZqU6nYFxggZ5NRWGOx9qERYKHbytVfiTP+GzP+bK/KB1q1AwTxxmoerRq2nylucAke3FWwdMz5VcWcK8QgDUTvXDBX2n04Fb1/C94gj0r4jpZzKCt6pg3N2YcitI8Xx/9Y8mRtMTj7mj+H98um+LtI1EjcBcJnHBBJ2124O0eayLln0BiIZAR6URGKhaRIJrGKQHIZQf6VN7c0ygTtSjg0lFigDB1pf1pKymBUEUBHNOHrQHvVZJjZ61mRSmkpkjM0oPGTSVmcdqAMJArM4rOvWkIyKAPPH8W90gh0q2wdx8x2bsFrzpbwFgsuzJLcV2v+LXUfO8V2mlK3yQW+9h7seP6CuQ2Sh42A6BsDBoJR6Nm8C2hN+pxuK8k9q6hFxDxWkeALch87DjlifX0rexgDGMfSufqJfsdfSRqAB3Zz+gooyccZz2oGPJ4/wCaRGx1AP25rEzoRJ1uwBHr6d6sIGw2EH1yKprcn8Ru5w3QVZ25KkDbwKrZei1t2yNvO3OTxUhPmfPYHqagrP8AyiAnJ6EdqkW8oICkjdjvTGyeH+fG1vsKNMFgQpyTz703G2AMkH15707aoXk+VeMdPSgjZKVGChQwTHU04TuTbyOf1oEOx2UDnt7UEkpHJ60wEfJPBAA6DrTG1T+VOndTRwkyNg5PJ6U6yhVyAR70AAv8tGYr8w49aZJDnPBA4xmpMrfyyAMgetRcgjGM5FMkMTRZkIyoGcCoM+5ScAY7nHerCUZAKHkHBqNMisGJHXsKjYMijLEkDjvxUfVkH4NlbgEHpUuMKpVSeg4qHrbEWUhznCnpVkeyjJ0cN8YLmUx88N9sZqis52/FoMgCKUNnpnmrvxJ800snGMYye5B61SaUI21y3SZC0RmQOBxlSRmu3j6R5rL8me+vAbzN4fsvOwGMKk4OR0rY+1a/4JgW10W2giLNCkYVCxyduOK2IYNWGZgiibik71hoAztScVlYD7UgKpqA9KI+lCagSYDCkxRGhbOeDgU0NMw+lZx3rM0hfHbNAxaQ5xxSE57VqnjnxU2hoYbaJZrjbuO44C+maUpKKtk8eOWSW2PZ5W/iB1A3nxV1rJJ8p1hGe21RWoaHGzMCGAxxj71N8dTyah4nv76aPZJJK0jjOfmJ5NB4bYeeiqh3tIFz6DP70N8WSUWnTOreFLJrfT4iVA3rk1dMCFPWltYhDbRKuMbBwPSsYkhgvQ+9cubtnaxrbFIYJHfvRRgHqMkmmXPOM570Vs/OWYDmqGjSpInQod+AoA71Z28Rdsf5e/FQ7WSInbwMVdWaxEfKCAD61Hay2MkFDAD1UAfWnoYNrbiAdvHFSlgLLu7Y4p1Iy0YbIz0we9KiVjGxlTO3g+tSLOMKhO3HpzTjRusarsJB4FOiFUQEMcemKdCI4Y72Y5weOlMTN5h2Z49hSXEih87gF7Y70Malm3Dj3oGgrYyKB0I9+9HJLLvHyfL6Z4p9Y/lyOv1FY6EoAVwe2OSfpQSInnuSCqj3zQbmC8gH2zUq4iCKRsOV568j61F8osSCcEfviosYiujZG3OPWmjhY9p/L60USsqfO3J6npmkkXKe/wDrSIsiSsN3C1Xa0S9lKMcheOasiMgLiq/WI9ljLwSdpNWw7RRk6ZwzXObiSMjGzO4nvUHw/Cs/iOwjdisbToGI7DcKsdWX+dLIx4LHk+maZ8IJG/jDS4nxslvI1+24V24dHmp9nvrQoVgsIo1xtVAB+lWHeo1jGI4EUdAMCpBNWGdmfWkYVmaztQBg6UlKKykBVGgPWiah96gSYJFIaI96E0IECfehPtRYzyaFsdqBmZNcd+K14qeLpLZuUaFOfRsV18Vw/wCJhE/xAmiDd0H6AVm1TqJ1vRoqWd39M4n4z0eUarczAYjkJPPBHb96qPDKsdVtMf5pQOOT1H/Fdj1rTItQ80Mq7mPymuZ+B9OkbxMkARi0U4VsnoFJzn9KeLJcWLV4duRP7OwzrsRFx2wahTsI42YEKB1J6Cp978uOfy/etN8W6hPFA8EAJkYEjIJIxjsPrWSMdzNMp7Y2DqfiC1hby4pQWzglWHX0Hc1Wpqu+YSvMEj46yA59+ua1iXRtdmnNwNOkuGJz16e+M/vTCeGPFcszvDaPBnt+XH9eK1RxQRkeab5OkaJrdnv8tpkYkE7t+DnPpW1aRqkTsMToVzgbTnBrhFzoevWhI1CK9ic9SUJVu+cjrUrSpNb0ufP4ndGeAWzx7c9DQ9PF9MlHVzj2j01azLJGNrnGO3apkJ2ko2V9Oa5h4S8S3OyNZ4XBb5STypPp14roWnXaXyh40K9jk5NY54XE6OPUKZbQBXdURgSDzn9qe1FPJtSzYUkY60el2mNkjNkqf1pnVpkkSXOCEyAB+9V0XbuSiYeY+8dj2PFS7K328547DsKKxgDjPAX1q0jiiIYJg7fzHHpUdpY5UNxW/QMgx13ZOad/DRtksOe1N+dmRmCnYg9emaQXkaRl3dWI68nbT2WQc6Cu4EEZTPzMOvfFVd0FUkx4GCM5zR3d+UBDAEkEg5+b/mtW1XWNrEPLuC8naQf6U/abIe6XErjJGcjsKDzEHQ9Tk59a1qDxBCo+UiSPHDA5x9atYbpJ1Eq8jGKi8bRJZEyYAobIbnnvUTUYDJbuG64x07VLiwSpK81IjCsW3AcDHIojwyE3aPPPiNPIEiMMFS4we/JxVNp8pTUrV1Yho5QVPckEdP0rZPicVXxBfQBcL5pC4GM8A1rOnwyy38KRLvYtgf712oP9bPPTjcqR9B/Dtx+K0W1nDbg8Stn1yBViDxXKfgjf6lHbRafezPJG0WYw5yVI7D2rqpPNShNTVoqz4ZYZ7ZC1gzQmizUikysNYOtLQBT9jQ0tJUBiHpQk84pWHFZ9qZJCGgwacxSHgUDG6438SrQw+OnnKjDwiRSPXGK7ITzXPPi7aEzWV6oOCrQn69R/rWfURuB0fSsmzPX2mjmt1dtawyOFVm7Z7VrPw1tTLrl7evHtPnktxjB5/wBas9RnA3RsCTnpRfDmLyF1IMP5gu2DfuP3rLB0mdPWQ/aLNkv+pIIAzjPpVL+Fie7ZplVm65xzVven5cEjP7Gq+TzYwW8kTRkc4PIqpy2sq2bhYRaWz7BDGNvIG0cf0/eoUniSJJGFnA1wgJy4OF/U9ftULVWlli2QrM6scmJiFDHtu45A/sVpOpaP4n1SQQ30qxWCtkQW4K7/AGY8H7VZBb3yxTTiuEdCPjexVdlxFEDjJUzIeO/eoq6/4Y1NiotYy3AyiqSD9jn9K59qvgfUGnEunaTAEdUAUSchgDn83JJ69akJ4RvYPDxiezaXUWvCgljUxqkAIw6nPJIzlTzitSwQq1IyvJktJxOl6ba2BHmWc5dAc7c4Kkf33raNKnAIIGeeRnr71yy/1K20K83wvd/ghgLJMCZI/Yn/ADL/AFrYNO8RiS3S7gkR1YbgynKkexrNNSRpgk1dUdes7ySC3xLJkt+UEcD2qHPI00LsoyX+Ue1afpfiGa7VE2cH9TW7aLI8hAMYwcdOaob5NUWWGkRpDZNvyCcDJNRobyFWZT7gt6n6VcTxDyPLdBz2Na1LbxRzM6jkjGfahNXyKTbXBSeJPEjWMbm1RppcE+UsZJz7CuXah8QNa/FsWX8MBk7GOW47ADBPWuk+KNT0/T/llV7i5IysMYyT7n0Hua0O+13y5DNLoumQq+eZZSD+vFasc19GTJjm/JrmpeNNZlAlfzYUwQzMhQH65/4qnXxHqVzMGS5JkBOCh3H7/wC9dL0+80DUQoufD2mOzMMlZFbkc55FX8Vr4Vt4gJ9J/CbgVOYMKR6bh2q33VHuJR7Mn1I5FB4jLHN+kseW4dR+Y+7DBz79K3LSteeONbi3Y3EEbBZNowVPfcvb6itsfwv4cvYSbezszE64+VV5Gc8H/wCqq7vwjDagS2EzJIi4wMAn26emRzmoSyY5E448kOTY9JvEnthLGMA8YI5/SrEMVQ46/vWveHYp4ImgkTaT86+u30/1/Wtmso8weY4IABOKxySUuDYpNxtnn74io9x4mcIrbppWHXtu/wDqts8F+ESL2G8lh2qqgqCPbrTHh7SB4i+ILJGoaKIMz56HkY/c11uezFjYOoALRxFRjnNbM2XbFRRRoNPvyOb+zbfhBYmWa61KTJCARxjsK6RWufDayNn4Utty7WlHmHPXnpWwjBJrVgjtxo5vqWX3dTJrpcf6CHSkzWZrP3q0whcUtD3os0AU2OaSiahqAwTSdDREUh9KZJCZpHaloCcj3oYMEmqLxxZfj/DtwgXLxfzU+o/4zV43FNvhgVYcGoyVqieObhNSXg8x+JraeKTzEQkE9q2TS7K3tTcNBkeeUkf6lFzirXXNNa1m1C2ZBmKbEbY/ynJFVOjmTDJMPnjQKftnH9K5yu6PSZ574KSG7/c7MMjA9ahPAyKT5hHGTg1JmfdM3OAD9zTttECd5Uue2aolywguCrSN2bkFvmyMCreAFyMR53c5PeiHnqrNG0a+hVcn9aKyk8k+ZMjy5zg7QFFJE1ElwLF+aSHOOeBSXN1EkLKsapkdMc0Au4dmPJZFyQevT71FlR5ifKjZgP8AOwxVsXQmim1fy7ldksaOpPOar2s7OCF7eyiVfMGSqjCgn0q/udPQJukbJz0HrTUFkpYsyYBGRjsaHMjsbB02D8O0UajGAM+tdF8PHaVdiAT05rQbUFZ8OSdrcn1rcNMkCRjaxO7ORVbLYY+DZtTunUcNlcYNa1q8s0criPJxGMFeufap0sm+Blz0469ahXZmkjSSIfMnHrUfIThRy/xCviM3TeVHa2qOxJ2ZeQjsWY9/pxWs+MtEur/RrWK30sz3MUpkmcvlpMjHf09K6tqcF1NMXfBwegU0djbxSYimj2bs89q0wy7SmeFTXJw7QPDb22m6tqeo/hEkgRY7a3YN5v8AMG1jsx+aMnOenucVslhdat4d8N2N9FrP+JBhuuNMmBLqpbgo3ZtuOD612200OyMK4KY9A2M8f81WXXhbSYHdTEsm45GRnFXz1MZLkx49E4Ps1Lwxr1jqLLdaS5Rm/wC9A/ykeoI7MK3Rd8sTFopFGM4dMf8ABqjbQrGC6MywRJISAX24OOgyRVlFEyfIs5G3gK4DCsMmm7RvUXVMkxFXbaEKqvIIHAPtU2STFlKGGDsI/UVA8yTcDNNgg9AOtPXQ3WbryFxk464pR5ISVGnfCy1/DXup34bCGQxZz1I68/pXR9OjGqXkFkh3NNIFyPTv/Sua2s/4axt7WPKs+ZCPdjkf0xXXvg9pzvdNfSr8sCYH/wCTf8VpS9zJRfxpdJv8/wDTp0MSW9vHBGMIihVA7AUtK/WhbtXUPHt27ZhalBzSEZrBxQAZrKzOazFAFSfehpPrWdqgMw0JpWOBQFuKaJIU/WhYY70hJoc0mALD3oCR0onbNNErmgDSviPAkLpcpw8wAPuV6f0NaIsm66mwcAxjI966v4u0k6vpZiiYCeM74ye59PvXJpEkgvJ4ZBtdVwwPYg96x5Y1OzsabIp4Nt8oZ8nzHJKhQDwfWp9pGFAzjA9BTGeFznnnp2p6GU7lCj5R1rK0dDG7JgjQgHauew6UT2yuvBbd9OKy2bMmWUcHg1PgUSQq+zacd6gaEiqhtFUlzGhA6Z5P0pLgsqbFQ/XGKvYIvO5CbVDcD1HrTNzbxhTLITu6ciixuJqrpLJKQVOQepNHKm1dgySvp1qTe31rHJt3Jke9R2mScZX7GimVsiRORKMjnPP1rY9Pbeo3HBz/AFrXmwr7QBuJ71f6Xv2qdvPX2qVFkEWSuVkbcx2t0470/ATDII5FYgnGQOM1WSzOHIZQOc4qztIHlg3bi4LZ55xVbJMSWO3ZNhHzZIU4ziq2Zfw0+/kKe45X9Ksms5h84bI6EEYBqDNAAxSRRgnJwOtNMhtCgvrXOCNvqQTj/inp5rMruTgY5bfuGfvVPd2Z/NCG5wflNMtYzDnaSrDkCmCgTrm6V8xJGHUjlQO3rTK2sUqEKeQfykkMKdtLURKBjbIOmelT3i/6cZj3Ej8y0qE40Vixy27hSd2T371YbI5IPLmG2OQhGycfKSAefpUaRWLbTu44yTUlraS6ENnC7Iz5JI7KOv65qUEUZFbSKaw8NtcaxPqMsg/Db2aMLnhc/KP0xXePCWnLpmhwxFAsjjzJOO57fYYrUfCGhxiWC2J3xo/mSE+g6D9cV0NiMYrfpMdXJnO9W1blWJPhBnnmkNIhyvNLmthxRDWClB4pBQAvQ0QNDRUAUpNDmsY0O4YqKGYxoCRSs4pstQSFY+9DmhLelCzUgFkIxTZFYxJoTnFAChgpwa518Tlt4tatpI4oxJLF85A5bnjNdDGO9c8+K4ZdR09lIx5TZ/8A2FV5fiXad/yI1WU+Yu0D5ew9u9OWnysVUggDNMRMSccEgcA96kWiv5hGACMHOT9658ju4ZFtbISoUnOei1a2kP8AKCBMBMe9QLcscEAADv3x7VPkv4rSHzGIA9KpfZvXRPZktFElw6bNvQHkmtD8Y63NMrw2R2xrklj/AKU5rOp3F02GOFP5VHf61RXM0bROjIpLcc1JLkhKZW6VaSzf9RKSztyNx7VcIj2+wEk565rNNj82HETDMYCsPSnXyGwx+lWirgcgKySo3GRWy6aGeIDODnA4zWvafHvk3L0HGD0PtWzaczIQojUfLzx0P1pUWwToLysSYb5jk5zjimE1R7OQw7W2jPIHNPQuAg3jOSemaiz2rTytgFQSCOOQarasbVkl9fdo8FCyt/mHQfWn7eVJgrEA5HA9DVJPAEkYEEbic49cUxY3b2l15U7FVA4J9Ki41yJfRtsSKEDttCk0clsp4BIB6YqPaTB4lIbCk45q0t9pZA6jYOx9alFJifBCaKKLhgSSB1/emZG8xVKMGQtgY7+tTb4hWYheAcAk8YqEg3ME2lQOh/ekxPog3MZ8xWGSOhqfo24ai8oGFWIrz2yR/tUeVAseGJBX8vNbL4A0aO/iuL66ctH5uwRgYztGTk/ercMHN0jBqM8cdSkbV4PtmisWnYECQ/ID/wCI71ds2TTSEIoVQAoGAB2pd2a6sY7UonncuT3Jub8jqntmsyaAHnNZmpkA84NFuoOtZSAcBzRk0yDTmTQBQsxNATg1jHmhqJKjGNDmsJoW9aBGNQmhzzQs+Dg0iQRbtQH7UJbJ60DPjvQA4Wx1rRvisp8rT5Rg4d1/oD/pW4knrzWsfEiJpPDgmUfNBOr/AGOQf3qORXFlmF1NM55F1bJ+U/Ke/NWdjGQOcjPTmq20bdESvBLAkEVsugwB8FpRuCkbSOK5s+Dt4XyRru/SzCIqmSdh8id8ep9BVNcXUzAzXDLJKPlKgcJ9P96mXytHZ3F6/wA08uTnuAOgH0FViqzw5lJDsOTux2649arirL8mR9FPeap5chiYEEDOBnNRpLtWCyZJJGAF4Yfem7nT7maVSJC6ICOT+bmge0m+aOMMCjZAHU89qvUUUb5Dc81wJFnt7hoGOGV42xkf7f0qx0vW5LuQQ3+wOSPLlTo59CKr2tpBb4KqyqmM5yWGe/ocU3bWvluqmNgjElWU4ZT26VKkCySTOkabbFo42iwxBB64zWy6dZyFs7M4HzfStH0LU2sIY4bxizEZ4GT9SKvbPxTZqWbzsKDtbg9ewqvbJM6ENTFx7LW5tv5jlzhS2RUY6pp0U3kq7TO3TYM4x7/7VTX+rSahIY1V0hJ7H83sfSq4SLBcEygBduF+XPPbFHtvtlctSrqJfNciebeqbU9z0/5pjVLZZrck4DDkMOuagQXSvg7thPIUnqB3/Wjl1AoyReU8itkkjoOOBScRPKu2SPD+otHcC3uBmRMdehHqK3zT2guoQV+Xjqx61yu4lne4UpHjyzkPjBH36H6Vs/h7VyVKSFlkBwV9ff71WlROOVTVGx3Q+ZgyZXHQdPrUFN3zlicYHJGc0cl15oJVxgdeO1CJcQNngZxzS8iyTpEe6IVV5BKrjPfGa6P4Ftxa+GLYYwZd0rZ7lj1/TFcsuhIZGEYy3QdvpXYtMh/DaXa2+MeXEqkfYVv0S5bOH6hPhIllsUuabzmkBANbzlDwPNEWyKZ3c8UQOaOwHNxxRqaYD0asMVEY8DShvemgwNLmmkFlKx7UJJpWNNNUCbML0BNY1AaQCE85oGOaXJ5oXPNAANwKQAHrREj0ptznoaaGKWGcVB160F/o11aAcyRkL9eo/ripeABz1ol9qGhp0ca0/PzK7MB3XvkVfaVchWK7Bj/Woviqw/w3xFMhbZFP/NjOOMHqPsc1GieMn87BMghhn2rmZYU2jsYpqk0XVzb+bYlEXdtyqr0+ta+jREvHOAu1v5fy4IHvWzWtzH+GZWUY5Kc961ifLTOd7DccElRkVTHhmi0zSfEev6h4euWuJ9PS8tVfkJlH2+o7H6Grjw34i0nXrT8ZYRs4TKyxtlXQ+/6jnpU7XNMS/smgcq0mM/Wuf+HGfwLr15qK2lzc2VzC0ctvCRuVsghlB4PTH0NaotSj/ZaotK0rOn266VORmFonfqQQVqWul2ksTi3MZYEjZnBNbTFpWga14d03ULa3hXzxC4miG0urAZGRwT696W48FWc+tR22n3csSGEySb/n2tnjGapUkTWXBJVJUc4u7S8imZGs2hXoXQbiRnrTS294UktBEyLJKGErL17nkc4/vvXTb/wv4k0NRN+JtNQtGdYxuB3AngDB9z61MTw74wFsXTTLORAM5EyAjntmrdxD28LVqZp0OmyQ2qROZ2U8OQOdpPb+tMTafO0m8p5rAYBByNvQ1ta2fjBtNF8tmTbgABvMT1x0znvVja+GfF8/lm8l0+yifo0pEpHvtUf60nL+wljxxV7kc7ubOdRKyqcKR83l/nHck/3isGnTwMUCEk4BZeoHp9frVL8R/Gl7o2ttovhq7tr+ZUIub3ygY4m3EBQMnLcZwegIqp8LWHi3XL9LzUNcvmt1bc67wFk9towAPam06tkFFNWje5LZJNojTcijneQD04BH2qE6SRRG4t8hrcBynfb3H9+lBr6LZ2cUiQ4dmAHJPJq08LwsbN5JtpeRdoDLyM/vWeTFHhl5p4Etv56EOxAPI6UYXaWBYEt3Hak0lViiRUk+UJjnvt4rJZmXcNpZST8xGdv1qKFklbB0ize81qytguAZAXb2HJ/oK62zDrWl/DqxZnn1GZOB/LiJ/rj9q3I9DXW0kNsL+ziaye7JS8CbqzdQkVnStJkDJ54olbFNdKwk5oAeLAiiVgBTINFmlQD4INGDxTKH5aME4pgUrN2oCeKXg9aQn2qktBIB5zQsRSsRQnk0CYhoGUk5oicZFCMckmgEA3FNnAzzRMe4pkkk0xi5z70QbBwKb6d6UnB4piZT+ONN/wAT0dpIl/6q2BkiPr6r9x+1cztrlH6nOF4J6/8AFdW13VbPStMlur6ZYo8bRnux4AHvk1xmdxBOSFwFOeOmc8isupStM3aRvazZ7a/WBx5jbo9vG/gg1Gn2zSb0VC2SwOe3fFU73REbykBmzleTyPTmpkc8cmyQo0agAgkc5Pr9/QVjcTdGQ/cNuWKVGIccEe1Umv2Ssd6gAPzx2PetimVnRCoypGSQOKr5HUF4pVzG5wMdjTi+TZjntZqul2cmnarb6jayzo1u+8IkhCbj3x0B98V1/wABeOILiS8uL+J2WJQq7du9VA7jjIznpXP/AMGYpfKIyCc7vWpS6JbzZaNim7hucbs1OUU+TZPRxzRvo77ruraTdWNlIJZRHJdoSrJjHyk8D7VcPqel/wCEyW8N1umKB0BHJHfFcDmk12FLIxX4lS0YyRh1zzjGD3IwTWXXiHxW95JdCeFWkjEeEjyAB6c+9CTOc/SsnVnRvEfi7/C/B0V9b6fut4nPmIZANwRhv2n16AVzvx58TdY8Sy28Pho3OkW6ROkksir5j7gANq8hQo6E855qig03VLyFYLu7mkjQlgrHgfXHep0GkwCVEto13E4OOufWiOOnbNeL0+EV+/LNY8KeC7YPb2UKlYU5djkljnJznqSe9dIt7S2soBBbKqoBkjt71Ls9OhsrcxrjzOpcDJyR2+lMzx7Q7AARqpGMcseveoZJtshlkuo9FFqcIv7y3gjjJWIhiBxj6VsUUEUFoFVNzr3APHFV+mwRRXjSXCHccEkkFVLDOf1IqW8xkjIQ58tdqjt9fvzVXZjc6HgHAKqQiqvUEfLx/wA0qW9xeSw2UDkyOducZ6ddxqIZ2ghw7eY2fmXI4PqcdK2D4bNE9/cyuVVzEFiUnkjPJ/arsUN81FlGWbjBy+jdtPt47CxhtIj8sa4z6nuakZyOtNOR6UKuQea7KVcI4jdu2Pfes7U2JKXdxSEEaSk3GsBzQAamlzz1oO55pFPvQA8re9OK/FMqaIGlQFV2pD70hPFA7AnBqosFJBNNsxycVnA6Gk3HoaBiFs9aA9KJ/amzz1pgCz9hTZbNOPjkd6bK4HrTBgMSMCmru4itbaS4ncJHGpZiTwAKd471xL+Irxp5Fu3huymKs6b7llPRey/ep44OcqRGUlFWc8+KXxHl8U+OdOtLWVhptvexiJAfznePnP8ApXQ7rBmfgjdmvMuluW8S6fITlnu4seuN4r0/P/3M4zWf1ClKKR0fTlcZWV3mNIptyp3dDjpj1z2qZZy4hUBSYmzkEY598+9MSjcrFM7hllHv3H0qPY3EZmZDweMK35hg8j7Vh7NMltZtVhIBEFhDLuHC5yoIFBc2hbbKQoyMnHcGo9pIxl2P8zK/bgfrVtK8ZYkAqFBzgf1qvpmiDtEBLmBFEBjMgDEMrDkferaxs4HRWWdScZCvwSaqnSVsDzDhT1HajWIiCZ3MnmAYR1JwCOTx71bHkuhqMmL4lzLYXMiCNUG3uQw705pug3LcSwyH5zwO4+tVtjLPGArfmbn5WwQeuc1JS5u1jQyzyZ74kODnPHHTtVlF/wCfP6LSXRWICxSLFEPmPfpUiGG0soy0KgsvLHrnj1+lM21xIscf8wMxRsK3OB75696YupIxADjHOcjg/cVCTIS1Mpqh6dt7lbfYBuLZPAwemfrTElxicKrBxks2CMFT35orNCQqgNK0gHHfFRL1TAjIzOohyQW+U9cjPr/fvVCVszZJUg9QmgtgIzgmUD5UcHuSOR2xz9qY3xRWQnd8vksQG9yBk020iR2v4qVI5XkGctztHXn3Hp9KYt4WupVllUJAxOFxgP7+w7VJqihKwbONrkebJxHnIB6v7k+nH3rVvi74svvB/wD6e1XT5tkwvWJ9GXbyp9Qa3wIrAt3A4yK4l/FbNi10CIEj55WwPoBV2lf80R6qO3TyPUvw/wDFdj4x8M2+sWTY3riSPPMbjqpq/rxj/Dl8QZfDmuR29zMRYXDCO4U9B6P9v2r2XFIksSyxsGRxkEHg12skNr46PPJ2OClzim93OKU1WMcVqXdzmmwTWbqAHt2axTzTQalDc0APg4oqaHI60Y6VECsYim2x1PSiNC3TFUkwfl7GgY0ZwBQjrzQMAnnrQOx7UTHk021SQwC3rQMcL1o2I9KZlcKPmIAoArfEuqw6Pol3qM7BUgiLH344FeM/FV/catqV3f3js0lw5kfJ7en6cV3j+IXxFHJZweHrOdSZD5txtOcKOgP1P7V5612URQM6HkNgD2Hf9a6Gmx7Ybn5MuWVyootCbzPFenscgfi4/sNwr1Cjqw2kjPUCvK+guw8Q2Mh7XKE//sK9PQyeZCkgwa5Gu+SO16b8ZD6ASOChwScYzUTVrSbC3FmuZVb5VH+f1B9+tTk3kAxgBuvHIqWqNLtTBUn5SRWFOjfKNqiJo1xDfW63UYKxlSUiZvynkEZ/s1PSd7eAtIzFic7l+vSq1ohp90W3AREnzABgb/8AzHucDP61YqkzDzIJFaHYGHv7/vTfPRCP68D1rJvYmMsw/wD9Z9KnxRSJEUBYqDzznH9+tQrAvBKqhMjpJ9cZ/wBaurYLCc8BmOOf8tBepKhsW8fk+a+Q2MDHGBWQRSCVS0YPPUDAP19uKmPDHLJu3OB0BxxQm2mjlV403BgMfMcD1/3qVsVobeSaKJgwSLnJbnpn96S3dZLhQ5+VzgED81OmN5uj7hjAGOM0URENu4kASR8ctzz68d/aotWJySDkeIsrD5HXAG3IPp16Y5qnurtNpMjsEtxgs5yHYduewzmi1ZmVlgs1d7iThtx/I3OTk8AdPr9qzTtJ3un4gxSrG2Sg/KvPv1+p/SlwiltyZHsoJbwq9zG0cSnKRjI8w8cn0HtV0VVYiSF5YfLnkU/5IhY7XUn8xx29Kwq6oDtAbOM7cE/7VU5Wy/HAhuhMwCZCqeRmuC/xWSH/ABDRIuyxyn+or0AflJPr7V51/idLT67p5HSKBiR9WrRpH/KiOvX+OzmHh68a2vUYElehr2p/Dp4u/wAa8L/4VdS77qxACknloz0/TpXhyxbEykY612j4A+KJdG8VWksj7YXfypf/AMDxz9ODXpIx9yG08tLh2ez2xSg8UCyBkV1IKkZFLu71jLAwaw0KkHpWHBPXBoAUEVmRQgnOOKU0AOI3NPB+KjCnAeKAIJpt85NYe9NknFZyzoXcaFmpDTUrFVyKBBOcioWo6jZWELS3NxHEo6lmArnnxX8XazotoRYSxxlv8xTJFcL1PXNW1WYvqF9NOSejNx+lbMGleRXfBVkzbDufij4u6LYB4tNVr2YcArwufrXLvEXxE8R6uzK14bWFjxHB8pI9z1rSmJJoVYm6VSeNpNdDHpscOkZZZZSJN7deaZJ5JNxVeXJ5rS/FCvHGqcg4G4fWtsvUX8AeOuAf1rXfGQBmbgDEjgY+tPKPGUPh9M6vbsRwsqn+teldGcS2aA+lec/Daj8cn/8AYK9A+GCWtowT/kFec1vMj0egVRZsFpH5agMC+ffmrGFkkmAztDHkcd+lQ4jjbgDoT9xUsYiIZVUkrkkjrXPs6DQ3fQyMpQKMcjI459ahWtxNar5cQ3jkFT6DqB/fNWmpgCCP5RyQfpj0qmZys5C4HO/6HNNMqkkWmn39uk7HLYKn8wwx4GM56D3q4srwNdK0nKgjBcdQOgH6ZrXrLEkkbOituJUgjjrWxW+jWVw8LlZY2Y5/lyFccdqnGSItNFhb3towBilVCMseMgc8/frT6TwlfNjUMzAggtw3vVd/6asS5l8+8VnO44lx169vYVY2nhuyW4KtcXroFyUac4bHrjmpbkLcxqe7iiYq80bN3BOBn++KYt7u5uQi28SoQdxkbG3pj5fU9T6DvU2TTLGPyh+GRySBucZP6/enbtvIjLxqoKghcjp9Krlk+iahfZBhslit41yjbjzuOWY46kgVNW2wxQ7WQgcLwx9MHsKyxQCJSfmMhUNkD68elOvhb/aqhTjZuH5sYz1qpuyxRQ35YUkkoPXC/wBKjmTqCNvcEnk1iyMcY4+bHH0puZiZSvYCkaIIZl/KzAbf9a89/HUC61wAjdshAHHua9BXZxBx3Fef/i4c6zMT2QVfp/nZTq/hRxsJ5dwVPY1uXhOUiaNwcZPIFavOB+LLYBODV94YZvxKEHFen0rumeUzqrR7O+GfjjStR0KxsLu8SHUEiCMkny7yBjIJ61v6OrLlcMPUGvJTKLjwlJcOMSwSKY3XgjNbf8HvHPiJ9WTSLi7FzbdB5q5Yfep6jS0nKLKcea3TPQwyOaXgn3pq2kaSHc2M+1EOtYDQKTg0Z45ppqXJzQA5SgnFACaJelAH/9k=');background-size:cover;background-position:center;border:1px solid var(--cline);"></div>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1.1;">Thomas Marchiani</div>
+            <div class="mono" style="font-size:8.5px;color:var(--ink-3);letter-spacing:.1em;margin-top:3px;">CO-FOUNDER · CHAIRMAN</div>
+            <div class="body-txt" style="font-size:11px;margin-top:6px;line-height:1.45;">CEO Marchiani Automation (Clevertech Group) · 10+ anni vendita automation F&amp;B · relazione coi 10 clienti.</div>
+          </div>
+          <div class="mono" style="font-size:8px;color:var(--ink-4);letter-spacing:.08em;background:rgba(21,23,26,.04);border:1px solid var(--cline);border-radius:3px;padding:1px 5px;align-self:start;">PROPOSED</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: backbone -->
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="eyebrow">Industrial backbone</div>
+        <div style="border:1px solid var(--ink);padding:14px 18px;background:var(--ink);color:var(--bone);">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <div style="font-size:17px;font-weight:700;letter-spacing:-.01em;">Clevertech Group</div>
+            <div class="mono" style="font-size:9.5px;color:rgba(242,239,232,.55);letter-spacing:.08em;">REGGIO EMILIA · 1987</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;">
+            <div><div style="font-family:var(--mono);font-size:17px;font-weight:800;color:var(--cadmio);">€250M</div><div class="stat-lbl" style="color:rgba(242,239,232,.5);font-size:8.5px;">Revenue</div></div>
+            <div><div style="font-family:var(--mono);font-size:17px;font-weight:800;color:var(--bone);">600+</div><div class="stat-lbl" style="color:rgba(242,239,232,.5);font-size:8.5px;">Persone</div></div>
+            <div><div style="font-family:var(--mono);font-size:17px;font-weight:800;color:var(--bone);">4</div><div class="stat-lbl" style="color:rgba(242,239,232,.5);font-size:8.5px;">Siti</div></div>
+            <div><div style="font-family:var(--mono);font-size:17px;font-weight:800;color:var(--bone);">85%</div><div class="stat-lbl" style="color:rgba(242,239,232,.5);font-size:8.5px;">Export</div></div>
+          </div>
+        </div>
+        <div class="mono" style="font-size:9px;color:var(--ink-3);text-align:center;line-height:1;">↓ &nbsp; 60% acq. gen 2025 &nbsp; ↓</div>
+        <div style="border:1px solid var(--ink);padding:12px 18px;">
+          <div style="font-size:14.5px;font-weight:700;color:var(--ink);letter-spacing:-.01em;">Marchiani Automation</div>
+          <div class="body-txt" style="font-size:11.5px;margin-top:4px;">Collecchio · 1995 · 20+ anni automation packaging</div>
+        </div>
+        <div class="mono" style="font-size:9px;color:var(--ink-3);text-align:center;line-height:1;">↓ &nbsp; 100% &nbsp; ↓</div>
+        <div style="border:1.5px solid var(--cadmio);background:rgba(245,197,24,.05);padding:12px 18px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;">
+            <div style="font-size:14.5px;font-weight:700;color:var(--ink);letter-spacing:-.01em;">D Factory S.r.l. <span class="mono" style="font-size:10px;color:var(--cadmio-d);font-weight:400;">→ brand Refyn</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px;">
+            <div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink);">€170K</div><div class="stat-lbl" style="font-size:8px;">Revenue 2024</div></div>
+            <div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink);">22%</div><div class="stat-lbl" style="font-size:8px;">Utile netto</div></div>
+            <div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink);">€0</div><div class="stat-lbl" style="font-size:8px;">Funding raised</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 14/17</div>
+    <div class="cell">TEAM & BACKBONE</div><div class="cell">CORE 3 + €250M</div>
+    <div class="cell flex">3 founder · dentro un gruppo packaging multi-settore</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide" id="i15">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>15</b> — FINANCIALS</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:36px;padding-top:6px;">
+      <div>
+        <h2 class="title" style="font-size:clamp(32px,4vw,56px);line-height:1.0;">Bootstrap in utile.<br><span style="color:var(--cadmio);">Break-even nel 2028.</span></h2>
+        <p class="body-txt" style="max-width:580px;margin-top:14px;font-size:13.5px;">2024 chiuso in utile, bootstrap puro · 2025 transizione post-acquisizione · 2026 primo anno post-round.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.4fr 0.6fr 0.6fr 0.6fr;gap:1px;background:var(--ink);border:1px solid var(--ink);">
+        <div style="background:var(--bone);padding:24px 26px;display:flex;flex-direction:column;justify-content:center;gap:6px;">
+          <div class="eyebrow" style="color:var(--cadmio-d);">Revenue 2028</div>
+          <div style="font-size:clamp(54px,7.2vw,108px);font-weight:800;color:var(--cadmio);line-height:.92;letter-spacing:-.03em;">€645K</div>
+          <div class="mono" style="font-size:11px;color:var(--ink-3);margin-top:4px;">da €207K nel 2026 · CAGR ~76%</div>
+        </div>
+        <div style="background:var(--bone);padding:24px 22px;display:flex;flex-direction:column;justify-content:center;">
+          <div class="stat-num" style="font-size:34px;color:var(--ink);">24%</div>
+          <div class="stat-lbl" style="margin-top:8px;">EBITDA margin 2028</div>
+        </div>
+        <div style="background:var(--bone);padding:24px 22px;display:flex;flex-direction:column;justify-content:center;">
+          <div class="stat-num" style="font-size:34px;color:var(--ink);">€242K</div>
+          <div class="stat-lbl" style="margin-top:8px;">ARR ricorrente 2028</div>
+        </div>
+        <div style="background:var(--bone);padding:24px 22px;display:flex;flex-direction:column;justify-content:center;">
+          <div class="stat-num" style="font-size:34px;color:var(--ink);">33</div>
+          <div class="stat-lbl" style="margin-top:8px;">Clienti 2028 (da 15)</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+        <div>
+          <div class="eyebrow" style="margin-bottom:10px;">Track record 2024</div>
+          <div style="display:flex;gap:32px;align-items:baseline;">
+            <div><div class="stat-num" style="font-size:28px;">€170K</div><div class="stat-lbl" style="margin-top:6px;">Revenue</div></div>
+            <div><div class="stat-num" style="font-size:28px;">22%</div><div class="stat-lbl" style="margin-top:6px;">Utile netto</div></div>
+            <div><div class="stat-num" style="font-size:28px;">€0</div><div class="stat-lbl" style="margin-top:6px;">Funding raised</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow" style="margin-bottom:10px;">Unit economics <span class="mono" style="font-size:8px;color:var(--quality);">[modello · da misurare]</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+            <div><div class="stat-num" style="font-size:22px;">€6.4K</div><div class="stat-lbl" style="margin-top:6px;font-size:9px;">ACV Y3</div></div>
+            <div><div class="stat-num" style="font-size:22px;">~€128K</div><div class="stat-lbl" style="margin-top:6px;font-size:9px;">LTV (churn 5%)</div></div>
+            <div><div class="stat-num" style="font-size:22px;color:var(--esg);">~12×</div><div class="stat-lbl" style="margin-top:6px;font-size:9px;">LTV / CAC</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mono" style="font-size:9px;color:var(--ink-4);line-height:1.55;">Scenario senza contributo parent (HR pieni): EBITDA Y3 €23K (margin 4%), break-even Y3 positivo. CAC e LTV da validare con primi clienti standalone post-round.</div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 15/17</div>
+    <div class="cell">FINANCIALS</div><div class="cell">BASE CASE</div>
+    <div class="cell flex">€645K Y3 · 24% EBITDA · break-even 2028</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide dark" id="i16">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>16</b> — THE ASK</div><div class="logo" style="font-size:16px;">Refyn<span class="dot">.</span></div></div>
+
+    <div style="display:grid;grid-template-columns:0.85fr 1.15fr;gap:48px;align-items:flex-start;padding-top:4px;">
+
+      <!-- LEFT: hero -->
+      <div>
+        <div style="font-size:clamp(72px,11vw,156px);font-weight:800;line-height:.82;color:var(--cadmio);letter-spacing:-.035em;">€500K</div>
+        <div style="font-family:var(--font);font-size:clamp(20px,2vw,28px);font-weight:600;color:var(--bone);margin-top:14px;letter-spacing:-.01em;line-height:1.1;">Non per costruire. <span style="color:rgba(242,239,232,.55);">Per scalare.</span></div>
+        <div class="eyebrow" style="margin:16px 0 0;color:rgba(242,239,232,.5);font-size:10px;">Round 1 · Pre-Seed SAFE · Q4 2026 · runway 18 mesi</div>
+
+        <p class="body-txt" style="font-size:13px;max-width:360px;line-height:1.55;color:rgba(242,239,232,.78);margin-top:22px;">Il prodotto c'è già: <strong style="color:var(--bone)">10 clienti, fee storica €1K/anno</strong>. Il round non finanzia lo sviluppo, finanzia il salto commerciale.</p>
+
+        <div style="margin-top:20px;padding-top:14px;border-top:1px solid var(--cline-d);max-width:380px;">
+          <div class="eyebrow" style="margin-bottom:8px;color:rgba(242,239,232,.5);font-size:9.5px;">Termini</div>
+          <div class="mono" style="font-size:11px;line-height:1.7;color:rgba(242,239,232,.72);">
+            Pre-money cap <strong style="color:var(--bone)">€2.5M</strong> · diluizione <strong style="color:var(--bone)">16,7%</strong><br>
+            DCF intrinseco €1.18M · benchmark pre-seed B2B SaaS
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: use of funds + milestones -->
+      <div>
+        <div class="eyebrow" style="margin-bottom:12px;">Use of funds · €500K</div>
+        <div style="display:flex;flex-direction:column;margin-bottom:24px;">
+          <div style="padding:8px 0;border-bottom:1px solid var(--cline-d);display:flex;justify-content:space-between;align-items:baseline;gap:12px;">
+            <span class="lead" style="color:var(--bone);font-size:13.5px;">Riserva operativa 18 mesi</span>
+            <span class="mono" style="font-size:13px;color:var(--cadmio);font-weight:700;min-width:100px;text-align:right;">€235K · 47%</span>
+          </div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--cline-d);display:flex;justify-content:space-between;align-items:baseline;gap:12px;">
+            <span class="lead" style="color:var(--bone);font-size:13.5px;">Capex Operator Performance</span>
+            <span class="mono" style="font-size:13px;color:var(--cadmio);font-weight:700;min-width:100px;text-align:right;">€100K · 20%</span>
+          </div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--cline-d);display:flex;justify-content:space-between;align-items:baseline;gap:12px;">
+            <span class="lead" style="color:var(--bone);font-size:13.5px;">Commerciale + scaling Y2</span>
+            <span class="mono" style="font-size:13px;color:var(--cadmio);font-weight:700;min-width:100px;text-align:right;">€75K · 15%</span>
+          </div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--cline-d);display:flex;justify-content:space-between;align-items:baseline;gap:12px;">
+            <span class="lead" style="color:var(--bone);font-size:13.5px;">Marketing &amp; lead gen</span>
+            <span class="mono" style="font-size:13px;color:var(--cadmio);font-weight:700;min-width:100px;text-align:right;">€60K · 12%</span>
+          </div>
+          <div style="padding:8px 0;display:flex;justify-content:space-between;align-items:baseline;gap:12px;">
+            <span class="lead" style="color:var(--bone);font-size:13.5px;">Brand &amp; sito Refyn</span>
+            <span class="mono" style="font-size:13px;color:var(--cadmio);font-weight:700;min-width:100px;text-align:right;">€30K · 6%</span>
+          </div>
+        </div>
+
+        <div class="eyebrow" style="margin-bottom:10px;color:var(--cadmio);">Milestones per sbloccare R2 · 18 mesi</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 28px;">
+          <div class="body-txt" style="font-size:11.5px;color:rgba(242,239,232,.78);">✓ 5+ clienti su nuovo pricing</div>
+          <div class="body-txt" style="font-size:11.5px;color:rgba(242,239,232,.78);">✓ 1+ cliente standalone</div>
+          <div class="body-txt" style="font-size:11.5px;color:rgba(242,239,232,.78);">✓ ARR €200K+ misurato</div>
+          <div class="body-txt" style="font-size:11.5px;color:rgba(242,239,232,.78);">✓ CAC misurato vs €10K baseline</div>
+          <div class="body-txt" style="font-size:11.5px;color:rgba(242,239,232,.78);">✓ Brand Refyn live · 2 case study</div>
+          <div class="body-txt" style="font-size:11.5px;color:rgba(242,239,232,.78);">✓ Modulo Operator Performance MVP</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;padding-top:14px;border-top:1px solid var(--cline-d);">
+      <div class="eyebrow" style="margin-bottom:8px;color:rgba(242,239,232,.5);font-size:9.5px;">Multi-round path</div>
+      <div style="display:grid;grid-template-columns:1fr 28px 1fr 28px 1fr;align-items:stretch;gap:0;">
+        <div style="border:1.5px solid var(--cadmio);background:rgba(245,197,24,.07);padding:8px 14px;">
+          <div class="mono" style="font-size:9px;color:var(--cadmio);letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px;font-weight:700;">R1 · ora</div>
+          <div style="font-family:var(--mono);font-size:14.5px;color:var(--bone);font-weight:700;line-height:1.1;">€500K @ €2.5M cap</div>
+          <div class="mono" style="font-size:9px;color:rgba(242,239,232,.55);margin-top:3px;">Q4 2026 · pre-seed SAFE</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;color:rgba(242,239,232,.35);font-family:var(--mono);">→</div>
+        <div style="border:1px solid var(--cline-d);padding:8px 14px;">
+          <div class="mono" style="font-size:9px;color:rgba(242,239,232,.5);letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px;font-weight:600;">R2 · proiettato</div>
+          <div style="font-family:var(--mono);font-size:14.5px;color:var(--bone);font-weight:700;line-height:1.1;">€1M @ €8M pre</div>
+          <div class="mono" style="font-size:9px;color:rgba(242,239,232,.55);margin-top:3px;">Q1 2028 · seed CDP / P101</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;color:rgba(242,239,232,.35);font-family:var(--mono);">→</div>
+        <div style="border:1px solid var(--cline-d);padding:8px 14px;">
+          <div class="mono" style="font-size:9px;color:rgba(242,239,232,.5);letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px;font-weight:600;">R3 · proiettato</div>
+          <div style="font-family:var(--mono);font-size:14.5px;color:var(--bone);font-weight:700;line-height:1.1;">€2M @ €12M pre</div>
+          <div class="mono" style="font-size:9px;color:rgba(242,239,232,.55);margin-top:3px;">Q3 2028 · Series A</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 16/17</div>
+    <div class="cell">THE ASK</div><div class="cell">R1 · €500K · 18M</div>
+    <div class="cell flex">pre-seed · €2.5M cap · multi-round path</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+<div class="slide dark" id="i17">
+  <div class="frame"></div>
+  <div class="body">
+    <div class="toprow"><div class="secnum"><b>17</b> — CHIUSURA</div><div class="logo" style="font-size:20px;">Refyn<span class="dot">.</span></div></div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+      <h2 class="title" style="font-size:clamp(48px,7vw,112px);line-height:.92;">Il dato c'è già.<br>Costruiamoci <span style="color:var(--cadmio)">il dataset.</span></h2>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <div>
+        <div class="lead" style="color:var(--bone);font-size:20px;font-weight:600;margin-bottom:12px;">Parliamone.</div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:32px;height:1px;background:var(--cadmio);"></div>
+          <div class="mono" style="font-size:11px;color:rgba(242,239,232,.6);letter-spacing:.04em;">CEO · email · sito · LinkedIn</div>
+        </div>
+      </div>
+      <div class="mono" style="font-size:9px;color:var(--ink-4);text-align:right;line-height:1.5;">Documento confidenziale · Refyn / D Factory S.r.l. · 2026<br>Proiezioni e stime soggette a validazione</div>
+    </div>
+  </div>
+  <div class="cartiglio">
+    <div class="cell"><b>REF-INV</b></div><div class="cell">DOC 17/17</div>
+    <div class="cell">CHIUSURA</div><div class="cell">CONTATTO</div>
+    <div class="cell flex">parliamone</div><div class="cell brand">Refyn<span style="color:var(--cadmio)">.</span></div></div>
+</div>
+
+<div class="nav">
+  <button onclick="go(-1)">←</button>
+  <div class="c" id="ctr">01 / 17</div>
+  <button onclick="go(1)">→</button>
+</div>
+
+<script>
+let cur=0;
+const slides=[...document.querySelectorAll(".slide")];
+const N=slides.length;
+function render(){
+  slides.forEach((s,i)=>s.classList.toggle("active",i===cur));
+  document.getElementById("ctr").textContent=String(cur+1).padStart(2,"0")+" / "+String(N).padStart(2,"0");
+  document.getElementById("prog").style.width=((cur+1)/N*100)+"%";
+}
+function go(dir){cur=Math.max(0,Math.min(N-1,cur+dir));render();}
+document.addEventListener("keydown",ev=>{if(ev.key==="ArrowRight"||ev.key===" ")go(1);if(ev.key==="ArrowLeft")go(-1);});
+render();
+</script>
+</body>
+</html>
